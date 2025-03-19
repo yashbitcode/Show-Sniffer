@@ -5,7 +5,7 @@ import { Outlet } from "react-router";
 
 const AppLayout = () => {
 	return (
-		<div className="bg-[#0F141E] h-[200vh] flex gap-[1rem]">
+		<div className="bg-[#0F141E] flex gap-[0.8rem] w-full h-full min-h-[100vh]">
 			<Header />
 			<Outlet />
 		</div>
