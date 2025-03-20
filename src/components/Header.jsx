@@ -4,10 +4,19 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 
 const Header = () => {
     return (
-        <div className="h-[550px] w-fit px-[15px] top-[1.5rem] py-[20px] bg-[#171D2F] mx-[0.7rem] flex flex-col items-center rounded-[10px] justify-between sticky">
+        <div className="h-[550px] w-fit px-[15px] top-[1.5rem] py-[20px] bg-[#202946] mx-[0.7rem] flex flex-col items-center rounded-[10px] justify-between sticky">
             <ul className="flex flex-col items-center h-full max-h-[420px] gap-[1.5rem] justify-between">
                 <li>
-                    <Clapperboard size={45} strokeWidth={1.5} color="#F74840" />
+                    <TooltipProvider>
+                        <Tooltip>
+                            <TooltipTrigger>
+                                <Clapperboard size={45} strokeWidth={1.5} color="#F74840" />
+                            </TooltipTrigger>
+                            <TooltipContent side="right" className="bg-[#F74840] text-white text-[0.9rem]">
+                                <p className="text-[0.9rem]">Snow Sniffer</p>
+                            </TooltipContent>
+                        </Tooltip>
+                    </TooltipProvider>
                 </li>
                 <li>
                     <TooltipProvider className={"bg-amber-200"}>
