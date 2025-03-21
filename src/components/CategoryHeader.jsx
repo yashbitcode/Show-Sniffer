@@ -1,5 +1,6 @@
 import { getTitleStr } from "@/utils/helper";
 import { Badge } from "@/components/ui/badge";
+import { Link } from "react-router";
 
 const CategoryHeader = ({category, tag}) => {
     return (
@@ -8,7 +9,9 @@ const CategoryHeader = ({category, tag}) => {
                 <h1 className="text-3xl text-white">{getTitleStr(category.split("_"))}</h1>
                 <Badge className={`text-[11px] relative top-[2px] ${(tag !== "movie") ? "bg-white text-black" : "outline-[1.3px] outline-white text-white bg-transparent"}`}>{tag.toUpperCase()}</Badge>
             </div>
-            <span className="text-[1rem] text-[#3e496a] relative top-[6px] cursor-pointer">SEE MORE</span>
+            <Link to={`/${category}/${tag}/1`}>
+                <span className="text-[1rem] text-[#3e496a] relative top-[6px] cursor-pointer">SEE MORE</span>
+            </Link>
         </div>
     );
 };

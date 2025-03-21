@@ -7,12 +7,8 @@ const Card = ({info, tag, type}) => {
 
     return (
         <div className="relative cursor-pointer hover:scale-[1.02] transition-all duration-500 hover:rotate-[1deg] ease h-full">
-            <div className="w-full object-cover rounded-[8px] overflow-hidden bg-white">
-                {/* {
-                    backdrop_path ? <img src={backdrop_path ? `https://image.tmdb.org/t/p/original${backdrop_path}` : "null"} alt="" /> : <ImageOff />
-                } */}
+            <div className={`w-full object-cover rounded-[8px] overflow-hidden bg-white ${(type === "major" && "opacity-75")}`}>
                 <img src={backdrop_path ? `https://image.tmdb.org/t/p/original${backdrop_path}` : noImg} alt="" />
-
             </div>
 
             <div className={(type === "major") ? "absolute z-[10] bottom-[10px] left-[10px]" : "mt-[1rem] flex flex-col gap-[7px]"}>
