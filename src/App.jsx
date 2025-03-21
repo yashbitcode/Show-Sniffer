@@ -3,6 +3,7 @@ import Header from "./components/Header";
 import Home from "./pages/Home";
 import { Outlet } from "react-router";
 import Category from "./pages/Category";
+import AllGenres from "./components/AllGenres";
 
 const AppLayout = () => {
 	return (
@@ -25,7 +26,11 @@ const appRoutes = createBrowserRouter([
 			{
 				path: "/:category/:tag/:page",
 				element: <Category />
-			}
+			},
+			{
+				path: "/genre/:tag",
+				element: <AllGenres />
+			},
 		]
 	}
 ]);

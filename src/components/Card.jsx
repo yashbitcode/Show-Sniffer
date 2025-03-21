@@ -13,7 +13,7 @@ const Card = ({info, tag, type}) => {
 
             <div className={(type === "major") ? "absolute z-[10] bottom-[10px] left-[10px]" : "mt-[1rem] flex flex-col gap-[7px]"}>
                 <div className="flex items-center">
-                    <span className="text-white">{(release_date || first_air_date).split("-")[0]}</span>
+                    <span className="text-white">{(release_date || first_air_date || "_").split("-")[0]}</span>
                     <Dot color="white" />
 
                     {

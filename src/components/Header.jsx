@@ -1,6 +1,7 @@
 import { Film, House, Clapperboard, TvMinimal, SquareUserRound, BookMarked, User } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+import { Link } from "react-router";
 
 const Header = () => {
     return (
@@ -18,42 +19,49 @@ const Header = () => {
                         </Tooltip>
                     </TooltipProvider>
                 </li>
-                <li>
-                    <TooltipProvider className={"bg-amber-200"}>
-                        <Tooltip>
-                            <TooltipTrigger>
-                                <House size={30} strokeWidth={2} color="white" />
-                            </TooltipTrigger>
-                            <TooltipContent side="right" className="bg-[#F74840] text-white text-[0.9rem]">
-                                <p className="text-[0.9rem]">Home</p>
-                            </TooltipContent>
-                        </Tooltip>
-                    </TooltipProvider>
-                </li>
-                <li>
-                    <TooltipProvider>
-                        <Tooltip>
-                            <TooltipTrigger>
-                                <Film size={30} strokeWidth={2} color="white" />
-                            </TooltipTrigger>
-                            <TooltipContent side="right" className="bg-[#F74840] text-white text-[0.9rem]">
-                                <p className="text-[0.9rem]">Movies</p>
-                            </TooltipContent>
-                        </Tooltip>
-                    </TooltipProvider>
-                </li>
-                <li>
-                    <TooltipProvider>
-                        <Tooltip>
-                            <TooltipTrigger>
-                                <TvMinimal size={30} strokeWidth={2} color="white" />
-                            </TooltipTrigger>
-                            <TooltipContent side="right" className="bg-[#F74840] text-white text-[0.9rem]">
-                                <p className="text-[0.9rem]">TV Series</p>
-                            </TooltipContent>
-                        </Tooltip>
-                    </TooltipProvider>
-                </li>
+                <Link to={"/"}>
+                    <li>
+                        <TooltipProvider className={"bg-amber-200"}>
+                            <Tooltip>
+                                <TooltipTrigger>
+                                    <House size={30} strokeWidth={2} color="white" />
+                                </TooltipTrigger>
+                                <TooltipContent side="right" className="bg-[#F74840] text-white text-[0.9rem]">
+                                    <p className="text-[0.9rem]">Home</p>
+                                </TooltipContent>
+                            </Tooltip>
+                        </TooltipProvider>
+                    </li>
+                </Link>
+
+                <Link to={"/genre/movie"}>
+                    <li>
+                        <TooltipProvider>
+                            <Tooltip>
+                                <TooltipTrigger>
+                                    <Film size={30} strokeWidth={2} color="white" />
+                                </TooltipTrigger>
+                                <TooltipContent side="right" className="bg-[#F74840] text-white text-[0.9rem]">
+                                    <p className="text-[0.9rem]">Movies</p>
+                                </TooltipContent>
+                            </Tooltip>
+                        </TooltipProvider>
+                    </li>
+                </Link>
+                <Link to={"/genre/tv series"}>
+                    <li>
+                        <TooltipProvider>
+                            <Tooltip>
+                                <TooltipTrigger>
+                                    <TvMinimal size={30} strokeWidth={2} color="white" />
+                                </TooltipTrigger>
+                                <TooltipContent side="right" className="bg-[#F74840] text-white text-[0.9rem]">
+                                    <p className="text-[0.9rem]">TV Series</p>
+                                </TooltipContent>
+                            </Tooltip>
+                        </TooltipProvider>
+                    </li>
+                </Link>
                 <li>
                     <TooltipProvider>
                         <Tooltip>
