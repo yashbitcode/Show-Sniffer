@@ -24,7 +24,7 @@ const Header = () => {
                         <TooltipProvider className={"bg-amber-200"}>
                             <Tooltip>
                                 <TooltipTrigger>
-                                    <House size={30} strokeWidth={2} color="white" />
+                                    <House size={30} strokeWidth={2} color="white" className="cursor-pointer" />
                                 </TooltipTrigger>
                                 <TooltipContent side="right" className="bg-[#F74840] text-white text-[0.9rem]">
                                     <p className="text-[0.9rem]">Home</p>
@@ -34,12 +34,12 @@ const Header = () => {
                     </li>
                 </Link>
 
-                <Link to={"/genre/movie"}>
+                <Link to={"/movie/genre"}>
                     <li>
                         <TooltipProvider>
                             <Tooltip>
                                 <TooltipTrigger>
-                                    <Film size={30} strokeWidth={2} color="white" />
+                                    <Film size={30} strokeWidth={2} color="white" className="cursor-pointer" />
                                 </TooltipTrigger>
                                 <TooltipContent side="right" className="bg-[#F74840] text-white text-[0.9rem]">
                                     <p className="text-[0.9rem]">Movies</p>
@@ -48,12 +48,12 @@ const Header = () => {
                         </TooltipProvider>
                     </li>
                 </Link>
-                <Link to={"/genre/tv series"}>
+                <Link to={"/tv series/genre"}>
                     <li>
                         <TooltipProvider>
                             <Tooltip>
                                 <TooltipTrigger>
-                                    <TvMinimal size={30} strokeWidth={2} color="white" />
+                                    <TvMinimal size={30} strokeWidth={2} color="white" className="cursor-pointer" />
                                 </TooltipTrigger>
                                 <TooltipContent side="right" className="bg-[#F74840] text-white text-[0.9rem]">
                                     <p className="text-[0.9rem]">TV Series</p>
@@ -66,7 +66,7 @@ const Header = () => {
                     <TooltipProvider>
                         <Tooltip>
                             <TooltipTrigger>
-                                <SquareUserRound size={30} strokeWidth={2} color="white" />
+                                <SquareUserRound size={30} strokeWidth={2} color="white" className="cursor-pointer" />
                             </TooltipTrigger>
                             <TooltipContent side="right" className="bg-[#F74840] text-white text-[0.9rem]">
                                 <p className="text-[0.9rem]">People</p>
@@ -78,7 +78,7 @@ const Header = () => {
                     <TooltipProvider>
                         <Tooltip>
                             <TooltipTrigger>
-                                <BookMarked size={45} strokeWidth={1.5} color="#F74840" />
+                                <BookMarked size={45} strokeWidth={1.5} color="#F74840" className="cursor-pointer" />
                             </TooltipTrigger>
                             <TooltipContent side="right" className="bg-[#F74840] text-white text-[0.9rem]">
                                 <p className="text-[0.9rem]">Bookmarks</p>

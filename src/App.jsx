@@ -2,8 +2,9 @@ import { createBrowserRouter, RouterProvider } from "react-router";
 import Header from "./components/Header";
 import Home from "./pages/Home";
 import { Outlet } from "react-router";
-import Category from "./pages/Category";
-import AllGenres from "./components/AllGenres";
+import AllGenres from "./pages/AllGenres";
+import GenreSpecific from "./pages/GenreSpecific";
+import CategorySpecific from "./pages/CategorySpecific";
 
 const AppLayout = () => {
 	return (
@@ -24,12 +25,16 @@ const appRoutes = createBrowserRouter([
 				element: <Home />
 			},
 			{
-				path: "/:category/:tag/:page",
-				element: <Category />
+				path: "/:tag/:category/:page",
+				element: <CategorySpecific />
 			},
 			{
-				path: "/genre/:tag",
+				path: "/:tag/genre",
 				element: <AllGenres />
+			},
+			{
+				path: "/:tag/genre/:genreName/:genreId/:page",
+				element: <GenreSpecific />
 			},
 		]
 	}

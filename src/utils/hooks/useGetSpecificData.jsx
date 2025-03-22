@@ -3,8 +3,9 @@ import { fetchData } from "../helper";
 
 const useGetSpecificData = (category, tag) => {
     const [data, setData] = useState(null);
+
     const fetchSpecificData = async () => {
-        const data = await fetchData(category, tag);
+        const data = await fetchData({category, tag});
         setData(data);
     };
 

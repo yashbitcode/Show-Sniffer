@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import SearchComp from "./SearchComp";
+import SearchComp from "../components/SearchComp";
 import { getAllGenres } from "@/utils/helper";
-import Genre from "./Genre";
+import Genre from "../components/Genre";
 import { useParams } from "react-router";
 
 const AllGenres = () => {
@@ -10,7 +10,6 @@ const AllGenres = () => {
 
     const fetchGenres = async () => {
         const data = await getAllGenres(tag);
-        console.log(data);
         setGenres(data.genres);
     };
 
@@ -21,11 +20,11 @@ const AllGenres = () => {
     if(!genres) return;
 
     return (
-        <div className="my-[2rem] mr-[1rem]">
+        <div className="my-[2rem] mr-[1rem] w-full">
             <SearchComp placeholder={"Movies"} />
             <div className={`flex flex-wrap mt-[2rem] gap-[1rem] ${tag === "movie" ? "[&>*:nth-child(odd)]:bg-[#0E7490] [&>*:nth-child(even)]:bg-[#171E31]" : "[&>*:nth-child(odd)]:bg-[#378a7f] [&>*:nth-child(even)]:bg-[#12182a]"}`} >
                 {
-                    genres.map((el) => <Genre key={el.id} name={el.name} id={el.id} />)
+                    genres.map((el) => <Genre key={el.id} tag={tag} name={el.name} id={el.id} />)
                 }
             </div>
         </div>

@@ -1,26 +1,27 @@
 import Card from "@/components/Card";
 import SearchComp from "@/components/SearchComp";
-import { fetchData } from "@/utils/helper";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import { Pagination, PaginationContent, PaginationItem, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
+import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
 
-const Category = () => {
+const CommonResultComp = ({baseUrl, handler}) => {
     const [data, setData] = useState(null);
-    const {category, tag, page} = useParams();
+    const params = useParams();
     const navigate = useNavigate();
 
+    const {page, tag} = params;
+
     const fetchCategoryData = async () => {
-        const fetchedData = await fetchData(category, tag, page);
+        const fetchedData = await handler(params);
         setData(fetchedData);
     };
 
     const setNextPage = () => {
-        if((+page + 1) <= +data.total_pages) navigate(`/${category}/${tag}/${+page + 1}`);
+        if((+page + 1) <= +data.total_pages) navigate(`${baseUrl}/${+page + 1}`);
     };
 
     const setPrevPage = () => {
-        if((+page - 1) <= +data.total_pages && (+page !== 1)) navigate(`/${category}/${tag}/${+page - 1}`);
+        if((+page - 1) <= +data.total_pages && (+page !== 1)) navigate(`${baseUrl}/${+page - 1}`);
     };
 
     useEffect(() => {
@@ -31,7 +32,7 @@ const Category = () => {
     if(!data) return;
 
     return (
-        <div className="pr-[1rem] my-[2rem]">
+        <div className="pr-[1rem] my-[2rem] w-full">
             <SearchComp placeholder={"Movies"} />
             <div>
                 <h1 className="text-[1.8rem] font-[300] text-white mt-[2rem]">Found {data.total_results.toLocaleString()} Results</h1>
@@ -62,7 +63,9 @@ const Category = () => {
 
                         {
                             !(+page >= data.total_pages) && (
-                                <span className="text-2xl">...</span>
+                                <PaginationItem>
+                                    <PaginationEllipsis />
+                                </PaginationItem>
                             )
                         }
                         
@@ -77,4 +80,4 @@ const Category = () => {
     );
 };
 
-export default Category;
+export default CommonResultComp;
