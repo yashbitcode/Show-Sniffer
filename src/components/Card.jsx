@@ -3,7 +3,8 @@ import { Dot, Film, TvMinimal } from "lucide-react";
 import noImg from "../assets/no-img.png";
 
 const Card = ({info, tag, type}) => {
-    const {id, name, original_name, release_date, first_air_date, original_title, backdrop_path} = info;
+    const {id, name, original_name, title, release_date, first_air_date, original_title, backdrop_path, media_type} = info;
+    tag = (media_type || tag);
 
     return (
         <div className="relative cursor-pointer hover:scale-[1.02] transition-all duration-500 hover:rotate-[1deg] ease h-full">
@@ -22,7 +23,7 @@ const Card = ({info, tag, type}) => {
 
                     <span className="text-white">{(tag === "movie") ? "Movie" : "TV Series"}</span>
                 </div>
-                <h1 className={`text-white ${(type === "major") ? "text-2xl" : "text-[1.1rem]"}`}>{getTruncatedStr(name || original_title || original_name)}</h1>
+                <h1 className={`text-white ${(type === "major") ? "text-2xl" : "text-[1.1rem]"}`}>{getTruncatedStr(title || name || original_title || original_name)}</h1>
             </div>
         </div>
     );

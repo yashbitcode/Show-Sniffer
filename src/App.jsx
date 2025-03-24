@@ -5,13 +5,18 @@ import { Outlet } from "react-router";
 import AllGenres from "./pages/AllGenres";
 import GenreSpecific from "./pages/GenreSpecific";
 import CategorySpecific from "./pages/CategorySpecific";
+import { Provider } from "react-redux";
+import appStore from "./utils/services/appStore";
+import SearchResults from "./pages/SearchResults";
 
 const AppLayout = () => {
 	return (
-		<div className="bg-[#0F141E] flex gap-[0.8rem] w-full h-full min-h-[100vh]">
-			<Header />
-			<Outlet />
-		</div>
+		<Provider store={appStore}>
+			<div className="bg-[#0F141E] flex gap-[0.8rem] w-full h-full min-h-[100vh]">
+				<Header />
+				<Outlet />
+			</div>
+		</Provider>
 	);
 };
 
@@ -35,6 +40,10 @@ const appRoutes = createBrowserRouter([
 			{
 				path: "/:tag/genre/:genreName/:genreId/:page",
 				element: <GenreSpecific />
+			},
+			{
+				path: "/:tag/search/:query/:page",
+				element: <SearchResults />
 			},
 		]
 	}

@@ -1,15 +1,15 @@
-import Card from "@/components/Card";
 import SearchComp from "@/components/SearchComp";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
+import CardList from "./CardList";
 
 const CommonResultComp = ({baseUrl, handler}) => {
     const [data, setData] = useState(null);
     const params = useParams();
     const navigate = useNavigate();
 
-    const {page, tag} = params;
+    const {page, tag, query} = params;
 
     const fetchCategoryData = async () => {
         const fetchedData = await handler(params);
@@ -27,18 +27,23 @@ const CommonResultComp = ({baseUrl, handler}) => {
     useEffect(() => {
         setData(null);
         fetchCategoryData();
-    }, [page]);
+    }, [page, query]);
 
     if(!data) return;
 
     return (
         <div className="pr-[1rem] my-[2rem] w-full">
-            <SearchComp placeholder={"Movies"} />
+            <SearchComp placeholder={(tag === "movies") ? "Movies" : "TV Series"} tag={tag} />
             <div>
                 <h1 className="text-[1.8rem] font-[300] text-white mt-[2rem]">Found {data.total_results.toLocaleString()} Results</h1>
                 <div className="mt-[1rem] grid-cols-[repeat(auto-fit,minmax(280px,1fr))] grid gap-x-[1.1rem] gap-y-[2rem] max-[620px]:justify-items-center">
                     {
-                        data.results.map((el) => <Card key={el.id} info={el} tag={tag} type={"minor"} />)
+                        (tag !== "multi") ? <CardList dataArr={data.results} tag={tag} /> : (
+                            <>
+                                <CardList dataArr={data.tvRes} tag={"tv"} />
+                                <CardList dataArr={data.movieRes} tag={"movie"} />
+                            </>
+                        )
                     }
                 </div>
 

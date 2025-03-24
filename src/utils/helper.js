@@ -24,14 +24,30 @@ export const getAllGenres = async (tag) => {
     return data;
 };
 
-export const getGenreSpecificData = async ({tag, genreId}) => {
+export const getGenreSpecificData = async ({tag, genreId, page}) => {
     tag = (tag === "tv series") ? "tv" : tag;
 
-    const res = await fetch(`https://api.themoviedb.org/3/discover/${tag}?api_key=5cc485ca4d1c04a1a9eb5393a66042b1&with_genres=${genreId}`);
+    const res = await fetch(`https://api.themoviedb.org/3/discover/${tag}?page=${page}&api_key=5cc485ca4d1c04a1a9eb5393a66042b1&with_genres=${genreId}`);
     const data = await res.json();
 
     return data;
 };
+
+export const getSearchSuggestions = async ({query, tag, page}) => {
+    tag = (tag === "tv series") ? "tv" : tag;
+
+    const res = await fetch(`https://api.themoviedb.org/3/search/${tag}?query=${query}&page=${page}&api_key=5cc485ca4d1c04a1a9eb5393a66042b1`);
+    const data = await res.json();
+
+    return data;
+};
+
+export const getSearchResults = async ({query, page}) => {
+    const tv = await getSearchSuggestions({query, tag: "tv", page});
+    const movie = await getSearchSuggestions({query, tag: "movie", page});
+
+    return {tvRes: [...tv.results], movieRes: [...movie.results], total_results: tv.total_results + movie.total_results, total_pages: (tv.total_pages > movie.total_pages) ? tv.total_pages : movie.total_pages};
+}
 
 export const getTitleStr = (str) => {
     let res = "";
