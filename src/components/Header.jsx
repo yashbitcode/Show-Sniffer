@@ -1,4 +1,4 @@
-import { Film, House, Clapperboard, TvMinimal, SquareUserRound, BookMarked, User } from "lucide-react";
+import { Film, House, Clapperboard, TvMinimal, SquareUserRound, BookMarked, User, CircleUserRound } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { Link } from "react-router";
@@ -48,6 +48,7 @@ const Header = () => {
                         </TooltipProvider>
                     </li>
                 </Link>
+
                 <Link to={"/tv series/genre"}>
                     <li>
                         <TooltipProvider>
@@ -62,18 +63,21 @@ const Header = () => {
                         </TooltipProvider>
                     </li>
                 </Link>
-                <li>
-                    <TooltipProvider>
-                        <Tooltip>
-                            <TooltipTrigger>
-                                <SquareUserRound size={30} strokeWidth={2} color="white" className="cursor-pointer" />
-                            </TooltipTrigger>
-                            <TooltipContent side="right" className="bg-[#F74840] text-white text-[0.9rem]">
-                                <p className="text-[0.9rem]">People</p>
-                            </TooltipContent>
-                        </Tooltip>
-                    </TooltipProvider>
-                </li>
+
+                <Link to={"/person"}>
+                    <li>
+                        <TooltipProvider>
+                            <Tooltip>
+                                <TooltipTrigger>
+                                    <CircleUserRound size={30} strokeWidth={2} color="white" className="cursor-pointer" />
+                                </TooltipTrigger>
+                                <TooltipContent side="right" className="bg-[#F74840] text-white text-[0.9rem]">
+                                    <p className="text-[0.9rem]">People</p>
+                                </TooltipContent>
+                            </Tooltip>
+                        </TooltipProvider>
+                    </li>
+                </Link>
                 <li>
                     <TooltipProvider>
                         <Tooltip>

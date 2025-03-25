@@ -23,10 +23,10 @@ const MainDataInfo = () => {
 
     if(!data) return;
 
-    let {poster_path, genres, homepage, original_title, title, original_name, name, vote_average, overview, popularity, release_date, production_companies, status, tagline, first_air_date, last_air_date, original_language, runtime} = data.mainData;
+    const {poster_path, genres, homepage, original_title, title, original_name, name, vote_average, overview, popularity, release_date, production_companies, status, tagline, first_air_date, last_air_date, original_language, runtime} = data.mainData;
 
     return (
-        <div className="my-[2rem]">
+        <div className="my-[2rem] pr-[1rem]">
             <SearchComp placeholder={(tag === "movies") ? "Movies" : "TV Series"} tag={tag} />
             <div className="mt-[2.5rem] relative grid max-lg1:grid-cols-1 grid-cols-[400px_auto] gap-[2.6rem] w-full">
                 <div className="w-full max-lg1:mx-auto max-lg1:max-w-[500px] overflow-hidden">
@@ -39,13 +39,11 @@ const MainDataInfo = () => {
                     </div>
 
                     <div className="flex gap-[10px] items-center">
-                        <h1 className="text-[2.4rem] font-semibold">{(+vote_average).toFixed(1)}</h1>
+                        <h1 className="text-[2.4rem] font-semibold">{(5 * ((+vote_average * 10) / 100)).toFixed(1)}</h1>
                         {
                             (() => {
                                 const arr = [];
-                                vote_average = (5 * ((+vote_average * 10) / 100)).toFixed(1);
-
-                                let starWidth = vote_average * 100;
+                                let starWidth = (5 * ((+vote_average * 10) / 100)).toFixed(1) * 100;
 
                                 for(let i = 1; i <= 5; i++) {
                                     arr.push(<Star key={i} width={starWidth >= 100 ? 100 : (starWidth <= 0) ? 0 : starWidth} />);

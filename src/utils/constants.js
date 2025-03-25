@@ -51,4 +51,17 @@ export const HOME_ALL_BASE = [
     }
 ];
 
+export const PERSON_ALL_BASE = [
+    {
+        category: "trending",
+        type: "major",
+        tag: "person",
+    },
+    {
+        category: "popular",
+        type: "major",
+        tag: "person",
+    }
+];
+
 export const TMDB_IMG_LINK = "https://image.tmdb.org/t/p/original";

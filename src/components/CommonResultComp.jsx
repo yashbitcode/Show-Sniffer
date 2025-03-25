@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router";
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
 import CardList from "./CardList";
 
-const CommonResultComp = ({baseUrl, handler}) => {
+const CommonResultComp = ({baseUrl, handler, className}) => {
     const [data, setData] = useState(null);
     const params = useParams();
     const navigate = useNavigate();
@@ -36,7 +36,7 @@ const CommonResultComp = ({baseUrl, handler}) => {
             <SearchComp placeholder={(tag === "movies") ? "Movies" : "TV Series"} tag={tag} />
             <div>
                 <h1 className="text-[1.8rem] font-[300] text-white mt-[2rem]">Found {data.total_results.toLocaleString()} Results</h1>
-                <div className="mt-[1rem] grid-cols-[repeat(auto-fit,minmax(280px,1fr))] grid gap-x-[1.1rem] gap-y-[2rem] max-[620px]:justify-items-center">
+                <div className={className}>
                     {
                         (tag !== "multi") ? <CardList dataArr={data.results} tag={tag} /> : (
                             <>

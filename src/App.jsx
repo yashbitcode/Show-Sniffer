@@ -9,6 +9,7 @@ import { Provider } from "react-redux";
 import appStore from "./utils/services/appStore";
 import SearchResults from "./pages/SearchResults";
 import MainDataInfo from "./pages/MainDataInfo";
+import Person from "./pages/Person";
 
 const AppLayout = () => {
 	return (
@@ -37,6 +38,10 @@ const appRoutes = createBrowserRouter([
 			{
 				path: "/:tag/genre",
 				element: <AllGenres />
+			},
+			{
+				path: "/:tag",
+				element: <Person />
 			},
 			{
 				path: "/:tag/genre/:genreName/:genreId/:page",
