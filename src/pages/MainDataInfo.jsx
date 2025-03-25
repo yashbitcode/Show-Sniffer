@@ -13,7 +13,6 @@ const MainDataInfo = () => {
 
     const fetchData = async () => {
         const info = await getIdSpecificInfo(tag, mainId);
-        console.log(info);
         setData(info);
     };
 

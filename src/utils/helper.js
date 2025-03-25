@@ -63,6 +63,18 @@ export const getIdSpecificInfo = async (tag, id) => {
     return {mainData, videos, credits};
 };
 
+export const getPersonIdSpecificInfo = async (id) => {
+    const res1 = await fetch(`https://api.themoviedb.org/3/person/${id}?api_key=5cc485ca4d1c04a1a9eb5393a66042b1`);
+
+    const mainData = await res1.json();
+
+    const res2 = await fetch(`https://api.themoviedb.org/3/find/${mainData.imdb_id}?external_source=imdb_id&api_key=5cc485ca4d1c04a1a9eb5393a66042b1`);
+
+    const workedTitles = (await res2.json())?.person_results[0]?.known_for;
+
+    return {mainData, workedTitles};
+};
+
 export const getTitleStr = (str) => {
     let res = "";
 
