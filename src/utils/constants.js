@@ -50,3 +50,5 @@ export const HOME_ALL_BASE = [
         tag: "tv series"
     }
 ];
+
+export const TMDB_IMG_LINK = "https://image.tmdb.org/t/p/original";

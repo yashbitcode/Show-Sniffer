@@ -8,6 +8,7 @@ import CategorySpecific from "./pages/CategorySpecific";
 import { Provider } from "react-redux";
 import appStore from "./utils/services/appStore";
 import SearchResults from "./pages/SearchResults";
+import MainDataInfo from "./pages/MainDataInfo";
 
 const AppLayout = () => {
 	return (
@@ -44,6 +45,10 @@ const appRoutes = createBrowserRouter([
 			{
 				path: "/:tag/search/:query/:page",
 				element: <SearchResults />
+			},
+			{
+				path: "/:tag/:mainId",
+				element: <MainDataInfo />
 			},
 		]
 	}

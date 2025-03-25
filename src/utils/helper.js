@@ -47,7 +47,21 @@ export const getSearchResults = async ({query, page}) => {
     const movie = await getSearchSuggestions({query, tag: "movie", page});
 
     return {tvRes: [...tv.results], movieRes: [...movie.results], total_results: tv.total_results + movie.total_results, total_pages: (tv.total_pages > movie.total_pages) ? tv.total_pages : movie.total_pages};
-}
+};
+
+export const getIdSpecificInfo = async (tag, id) => {
+    tag = (tag === "tv series") ? "tv" : tag;
+
+    const res1 = await fetch(`https://api.themoviedb.org/3/${tag}/${id}?api_key=5cc485ca4d1c04a1a9eb5393a66042b1`);
+    const res2 = await fetch(`https://api.themoviedb.org/3/${tag}/${id}/videos?api_key=5cc485ca4d1c04a1a9eb5393a66042b1`);
+    const res3 = await fetch(`https://api.themoviedb.org/3/${tag}/${id}/credits?api_key=5cc485ca4d1c04a1a9eb5393a66042b1`);
+
+    const mainData = await res1.json();
+    const videos = await res2.json();
+    const credits = await res3.json();
+
+    return {mainData, videos, credits};
+};
 
 export const getTitleStr = (str) => {
     let res = "";
@@ -58,4 +72,9 @@ export const getTitleStr = (str) => {
     });
 
     return res;
+};
+
+export const getLanguage = (code) => {
+    const lang = new Intl.DisplayNames(['en'], {type: 'language'});
+    return lang.of(code);
 };

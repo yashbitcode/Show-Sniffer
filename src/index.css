@@ -6,6 +6,12 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@theme {
+  --breakpoint-sm1: 470px;
+  --breakpoint-sm2: 370px;
+  --breakpoint-lg1: 1200px;
+}
+
 body {
 	font-family: "Outfit", sans-serif;
 }
