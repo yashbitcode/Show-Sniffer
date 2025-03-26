@@ -1,10 +1,10 @@
 import { TMDB_IMG_LINK } from "@/utils/constants";
 import { getPersonIdSpecificInfo, getTitleStr } from "@/utils/helper";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 import noImg from "../assets/no-img.png";
-import { Badge } from "./ui/badge";
-import SearchComp from "./SearchComp";
+import { Badge } from "../components/ui/badge";
+import SearchComp from "../components/SearchComp";
 
 const PersonMainInfo = () => {
     const [data, setData] = useState(null);
@@ -75,7 +75,9 @@ const PersonMainInfo = () => {
                         <div className="flex gap-[10px] flex-wrap mt-[0.5rem]">
                             {
                                 data.workedTitles?.map((el) => (
-                                    <Badge className={"text-[16px] text-black bg-white"}>{getTitleStr((el.title || el.original_title).split(" "))}</Badge>
+                                    <Link to={`/${el.media_type}/${el.id}`} key={el.id}>
+                                        <Badge className={"text-[16px] text-black bg-white"}>{getTitleStr((el.title || el.original_title).split(" "))}</Badge>
+                                    </Link>
                                 ))
                             }
                         </div>

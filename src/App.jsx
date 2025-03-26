@@ -10,7 +10,7 @@ import appStore from "./utils/services/appStore";
 import SearchResults from "./pages/SearchResults";
 import MainDataInfo from "./pages/MainDataInfo";
 import Person from "./pages/Person";
-import PersonMainInfo from "./components/PersonMainInfo";
+import PersonMainInfo from "./pages/PersonMainInfo";
 
 const AppLayout = () => {
 	return (

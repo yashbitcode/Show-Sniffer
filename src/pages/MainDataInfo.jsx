@@ -3,9 +3,9 @@ import Star from "@/components/Star";
 import { Badge } from "@/components/ui/badge";
 import { TMDB_IMG_LINK } from "@/utils/constants";
 import { getIdSpecificInfo, getLanguage, getTitleStr } from "@/utils/helper";
-import { Link } from "lucide-react";
+import { Link as LinkLucide } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useParams, Link } from "react-router";
 
 const MainDataInfo = () => {
     const [data, setData] = useState(null);
@@ -26,7 +26,7 @@ const MainDataInfo = () => {
 
     return (
         <div className="my-[2rem] pr-[1rem]">
-            <SearchComp placeholder={(tag === "movies") ? "Movies" : "TV Series"} tag={tag} />
+            <SearchComp placeholder={(tag === "movie") ? "Movies" : "TV Series"} tag={tag} />
             <div className="mt-[2.5rem] relative grid max-lg1:grid-cols-1 grid-cols-[400px_auto] gap-[2.6rem] w-full">
                 <div className="w-full max-lg1:mx-auto max-lg1:max-w-[500px] overflow-hidden">
                     <img className="rounded-[15px] w-full" src={TMDB_IMG_LINK + poster_path} alt="" />
@@ -99,7 +99,11 @@ const MainDataInfo = () => {
                         <h2 className="text-[1.2rem]">Genres</h2>
                         <div className="flex gap-[10px] flex-wrap mt-[0.5em]">
                             {
-                                genres.map((el) => <Badge key={el.id} className={"text-[16px] text-black bg-white"}>{getTitleStr(el.name.split(" "))}</Badge>)
+                                genres.map((el) => (
+                                    <Link key={el.id} to={`/${tag}/genre/${el.name}/${el.id}/1`}>
+                                        <Badge className={"text-[16px] text-black bg-white"}>{getTitleStr(el.name.split(" "))}</Badge>
+                                    </Link>
+                                ))
                             }
                         </div>
                     </div>
@@ -112,7 +116,7 @@ const MainDataInfo = () => {
                                     if(el.type === "Trailer") return (
                                         <a href={`https://www.youtube.com/watch?v=${el.key}`} key={el.id}>
                                             <Badge className={"text-black bg-white"}>
-                                                <Link />
+                                                <LinkLucide />
                                             </Badge>
                                         </a>
                                     );
@@ -146,7 +150,7 @@ const MainDataInfo = () => {
 
                     <a href={homepage} className="mt-[1rem] flex items-center gap-[0.8rem] bg-[#202946] p-[10px] w-fit rounded-[10px]">
                         <span className="text-[1.1rem]">Website</span>
-                        <Link />
+                        <LinkLucide />
                     </a>
                 </div>
             </div>

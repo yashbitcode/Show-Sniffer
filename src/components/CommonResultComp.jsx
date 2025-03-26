@@ -33,8 +33,8 @@ const CommonResultComp = ({baseUrl, handler, className}) => {
 
     return (
         <div className="pr-[1rem] my-[2rem] w-full">
-            <SearchComp placeholder={(tag === "movies") ? "Movies" : "TV Series"} tag={tag} />
-            <div>
+            <SearchComp placeholder={(tag === "movie") ? "Movies" : "TV Series"} tag={tag} />
+            <div className="">
                 <h1 className="text-[1.8rem] font-[300] text-white mt-[2rem]">Found {data.total_results.toLocaleString()} Results</h1>
                 <div className={className}>
                     {
