@@ -5,6 +5,7 @@ import { Link, useParams } from "react-router";
 import noImg from "../assets/no-img.png";
 import { Badge } from "../components/ui/badge";
 import SearchComp from "../components/SearchComp";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const PersonMainInfo = () => {
     const [data, setData] = useState(null);
@@ -20,12 +21,12 @@ const PersonMainInfo = () => {
         fetchData();
     }, []);
 
-    if(!data) return;
+    if(!data) return <Skeleton className={"w-full h-[500px] mr-[1rem] mt-[1.5rem]"} />;
 
     const {profile_path, name, gender, place_of_birth, popularity, deathday, biography, known_for_department, birthday} = data.mainData;
 
     return (
-        <div className="my-[2rem] pr-[1rem]">
+        <div className="my-[2rem] min-sm3:pr-[1rem]">
             <SearchComp placeholder={"Person"} tag={"person"} />
             <div className="mt-[2rem] max-lg1:grid-cols-1 grid grid-cols-[400px_auto] gap-[2.6rem]">
                 <div className="w-full max-lg1:mx-auto max-lg1:max-w-[500px] overflow-hidden">

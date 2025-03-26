@@ -10,6 +10,7 @@
   --breakpoint-sm1: 470px;
   --breakpoint-sm2: 370px;
   --breakpoint-lg1: 1200px;
+  --breakpoint-sm3: 550px;
 }
 
 body {

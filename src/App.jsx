@@ -11,13 +11,15 @@ import SearchResults from "./pages/SearchResults";
 import MainDataInfo from "./pages/MainDataInfo";
 import Person from "./pages/Person";
 import PersonMainInfo from "./pages/PersonMainInfo";
+import { Toaster } from "@/components/ui/sonner"
 
 const AppLayout = () => {
 	return (
 		<Provider store={appStore}>
-			<div className="bg-[#0F141E] flex gap-[0.8rem] w-full h-full min-h-[100vh]">
+			<div className="bg-[#0F141E] flex gap-[0.8rem] w-full h-full min-h-[100vh] max-sm3:flex-col max-sm3:px-[1rem]">
 				<Header />
 				<Outlet />
+				<Toaster />
 			</div>
 		</Provider>
 	);

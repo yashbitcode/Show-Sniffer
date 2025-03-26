@@ -1,6 +1,7 @@
 import SearchComp from "@/components/SearchComp";
 import Star from "@/components/Star";
 import { Badge } from "@/components/ui/badge";
+import { Skeleton } from "@/components/ui/skeleton";
 import { TMDB_IMG_LINK } from "@/utils/constants";
 import { getIdSpecificInfo, getLanguage, getTitleStr } from "@/utils/helper";
 import { Link as LinkLucide } from "lucide-react";
@@ -20,12 +21,12 @@ const MainDataInfo = () => {
         fetchData();
     }, []);
 
-    if(!data) return;
+    if(!data) return <Skeleton className={"w-full h-[500px] mr-[1rem] mt-[1.5rem]"} />;
 
     const {poster_path, genres, homepage, original_title, title, original_name, name, vote_average, overview, popularity, release_date, production_companies, status, tagline, first_air_date, last_air_date, original_language, runtime} = data.mainData;
 
     return (
-        <div className="my-[2rem] pr-[1rem]">
+        <div className="my-[2rem] min-sm3:pr-[1rem]">
             <SearchComp placeholder={(tag === "movie") ? "Movies" : "TV Series"} tag={tag} />
             <div className="mt-[2.5rem] relative grid max-lg1:grid-cols-1 grid-cols-[400px_auto] gap-[2.6rem] w-full">
                 <div className="w-full max-lg1:mx-auto max-lg1:max-w-[500px] overflow-hidden">
