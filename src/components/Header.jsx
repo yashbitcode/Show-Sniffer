@@ -80,18 +80,21 @@ const Header = () => {
                             </TooltipProvider>
                         </li>
                     </Link>
-                    <li>
-                        <TooltipProvider>
-                            <Tooltip>
-                                <TooltipTrigger>
-                                    <BookMarked size={45} strokeWidth={1.5} color="#F74840" className="cursor-pointer" />
-                                </TooltipTrigger>
-                                <TooltipContent side="right" className="bg-[#F74840] text-white text-[0.9rem]">
-                                    <p className="text-[0.9rem]">Bookmarks</p>
-                                </TooltipContent>
-                            </Tooltip>
-                        </TooltipProvider>
-                    </li>
+                    
+                    <Link to={"/bookmarks"}>
+                        <li>
+                            <TooltipProvider>
+                                <Tooltip>
+                                    <TooltipTrigger>
+                                        <BookMarked size={45} strokeWidth={1.5} color="#F74840" className="cursor-pointer" />
+                                    </TooltipTrigger>
+                                    <TooltipContent side="right" className="bg-[#F74840] text-white text-[0.9rem]">
+                                        <p className="text-[0.9rem]">Bookmarks</p>
+                                    </TooltipContent>
+                                </Tooltip>
+                            </TooltipProvider>
+                        </li>
+                    </Link>
                 </ul>
 
                 <Avatar>
@@ -153,10 +156,12 @@ const Header = () => {
                             </DropdownMenuItem>
                         </Link>
 
-                        <DropdownMenuItem className={"flex items-center gap-[6px]"}>
-                            <BookMarked size={40} strokeWidth={2} color="black" className="cursor-pointer" />
-                            <span>Bookmarks</span>
-                        </DropdownMenuItem>
+                        <Link to={"/bookmarks"}>
+                            <DropdownMenuItem className={"flex items-center gap-[6px]"}>
+                                <BookMarked size={40} strokeWidth={2} color="black" className="cursor-pointer" />
+                                <span>Bookmarks</span>
+                            </DropdownMenuItem>
+                        </Link>
                     </DropdownMenuContent>
                 </DropdownMenu>
             </div>

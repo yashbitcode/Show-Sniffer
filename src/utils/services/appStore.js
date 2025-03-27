@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import suggestionsReducer from "./suggestionsSlice";
+import bookmarksReducer from "./bookmarksSlice";
 
 const appStore = configureStore({
     reducer: {
-        searchSuggestions: suggestionsReducer
+        searchSuggestions: suggestionsReducer,
+        bookmarks: bookmarksReducer
     }
 });
 

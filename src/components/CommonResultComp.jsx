@@ -31,7 +31,7 @@ const CommonResultComp = ({baseUrl, handler, className}) => {
     }, [page, query]);
 
     return (
-        <div className="min-sm3:pr-[1rem] my-[2rem] w-full">
+        <div className="min-sm3:pr-[0.5rem] my-[2rem] w-full">
             <SearchComp placeholder={(tag === "movie") ? "Movies" : (tag === "person") ? "Person" : "TV Series"} tag={tag} />
             {
                 (data) ? (

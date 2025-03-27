@@ -15,8 +15,6 @@ const MainDataInfo = () => {
     const fetchData = async () => {
         const info = await getIdSpecificInfo(tag, mainId);
         setData(info);
-
-        console.log(info);
     };
 
     useEffect(() => {

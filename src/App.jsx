@@ -12,6 +12,7 @@ import MainDataInfo from "./pages/MainDataInfo";
 import Person from "./pages/Person";
 import PersonMainInfo from "./pages/PersonMainInfo";
 import { Toaster } from "@/components/ui/sonner"
+import Bookmarks from "./pages/Bookmarks";
 
 const AppLayout = () => {
 	return (
@@ -62,6 +63,11 @@ const appRoutes = createBrowserRouter([
 				path: "/:tag/:mainId",
 				element: <MainDataInfo />
 			},
+			{
+				path: "/bookmarks",
+				element: <Bookmarks />
+			},
+
 		]
 	}
 ]);
