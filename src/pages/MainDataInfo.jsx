@@ -15,12 +15,16 @@ const MainDataInfo = () => {
     const fetchData = async () => {
         const info = await getIdSpecificInfo(tag, mainId);
         setData(info);
+
+        console.log(info);
     };
 
     useEffect(() => {
         fetchData();
-    }, []);
 
+        return () => setData(null);
+    }, [mainId]);
+    
     if(!data) return <Skeleton className={"w-full h-[500px] mr-[1rem] mt-[1.5rem]"} />;
 
     const {poster_path, genres, homepage, original_title, title, original_name, name, vote_average, overview, popularity, release_date, production_companies, status, tagline, first_air_date, last_air_date, original_language, runtime} = data.mainData;
@@ -41,18 +45,14 @@ const MainDataInfo = () => {
                     <div className="flex gap-[10px] items-center">
                         <h1 className="text-[2.4rem] font-semibold">{(5 * ((+vote_average * 10) / 100)).toFixed(1)}</h1>
                         {
-                            (() => {
-                                const arr = [];
-                                let starWidth = (5 * ((+vote_average * 10) / 100)).toFixed(1) * 100;
 
-                                for(let i = 1; i <= 5; i++) {
-                                    arr.push(<Star key={i} width={starWidth >= 100 ? 100 : (starWidth <= 0) ? 0 : starWidth} />);
+                            Array.from({length: 5}, (_, idx) => {
+                                let starWidth = ((5 * ((+vote_average * 10) / 100)).toFixed(1) * 100) - (idx  * 100);
 
-                                    starWidth -= 100;
-                                };
-
-                                return arr;
-                            })()
+                                return (
+                                    <Star key={idx} width={starWidth >= 100 ? 100 : (starWidth <= 0) ? 0 : starWidth} />
+                                );
+                            }) 
                         }
                     </div>
 
@@ -135,7 +135,11 @@ const MainDataInfo = () => {
                         <h2 className="text-[1.2rem]">Casts</h2>
                         <div className="flex gap-[10px] flex-wrap mt-[0.5rem]">
                             {
-                                data.credits.cast.map((el) => <Badge key={el.id} className={"text-[16px] outline-[1.5px] outline-white text-white bg-transparent"}>{getTitleStr(el.name.split(" "))}</Badge>)
+                                data.credits.cast.map((el) => (
+                                    <Link key={el.id} to={`/person/${el.id}`}>
+                                        <Badge className={"text-[16px] outline-[1.5px] outline-white text-white bg-transparent"}>{getTitleStr(el.name.split(" "))}</Badge>
+                                    </Link>
+                                ))
                             }
                         </div>
                     </div>

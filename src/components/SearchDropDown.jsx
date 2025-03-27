@@ -1,7 +1,10 @@
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
+import { Link } from "react-router";
 
-const SearchDropDown = ({suggestions}) => {
+const SearchDropDown = ({suggestions, tag}) => {
+    tag = (tag === "tv series") ? "tv" : tag;
+
     return (
         <ScrollArea className="h-72 w-full absolute rounded-md border">
             <div className="p-4">
@@ -11,10 +14,12 @@ const SearchDropDown = ({suggestions}) => {
 
                     if(media_type !== "person") {
                         return (
-                            <div key={id}>
-                                <div>{title || name || original_title || original_name}</div>
-                                <Separator className="my-2" />
-                            </div>
+                            <Link key={id} to={`/${tag ? tag : media_type}/${id}`}>
+                                <div>
+                                    <div>{title || name || original_title || original_name}</div>
+                                    <Separator className="my-2" />
+                                </div>
+                            </Link>
                         );
                     }
                 })

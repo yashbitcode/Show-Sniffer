@@ -77,7 +77,7 @@ const PersonMainInfo = () => {
                             {
                                 data.workedTitles?.map((el) => (
                                     <Link to={`/${el.media_type}/${el.id}`} key={el.id}>
-                                        <Badge className={"text-[16px] text-black bg-white"}>{getTitleStr((el.title || el.original_title).split(" "))}</Badge>
+                                        <Badge className={"text-[16px] text-black bg-white"}>{getTitleStr((el.title || el.name || el.original_title || el.original_name).split(" "))}</Badge>
                                     </Link>
                                 ))
                             }

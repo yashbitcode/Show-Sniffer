@@ -6,21 +6,13 @@ export const Shimmer = ({className, cardClass, totalCards = 10}) => {
             <Skeleton className={"w-[230px] h-[30px]"} />
             <div className={className}>
                 {
-                    (() => {
-                        const arr = [];
-
-                        for(let i = 1; i <= totalCards; i++) {
-                            arr.push(
-                                <div className={cardClass} key={i}>
-                                    <Skeleton className={"w-full h-full"} />    
-                                </div>
-                            );
-                        }
-
-                        return arr;
-                    })()
+                    Array.from({length: totalCards}, (_, idx) => (
+                        <div className={cardClass} key={idx}>
+                            <Skeleton className={"w-full h-full"} />    
+                        </div>
+                    ))
                 }
             </div>
         </div>
-    )
+    );
 };
