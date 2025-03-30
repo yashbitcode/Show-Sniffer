@@ -1,10 +1,39 @@
 import { Film, House, TvMinimal, BookMarked, User, CircleUserRound, Logs, Popcorn } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
-import { Link } from "react-router";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import HeaderNavItem from "./HeaderNavItem";
+import DropDownNavItem from "./DropDownNavItem";
 
 const Header = () => {
+    const navOptions = [
+        {
+            name: "Home",
+            icon: House,
+            nav: "/"
+        },
+        {
+            name: "Movies",
+            icon: Film,
+            nav: "/movie/genre"
+        },
+        {
+            name: "TV Series",
+            icon: TvMinimal,
+            nav: "/tv series/genre"
+        },
+        {
+            name: "People",
+            icon: CircleUserRound,
+            nav: "/person"
+        },
+        {
+            name: "Bookmarks",
+            icon: BookMarked,
+            nav: "/bookmarks"
+        },
+    ];
+
     return (
         <>
             <div className="min-sm3:h-[530px] max-sm3:hidden w-fit px-[15px] top-[1.5rem] py-[20px] bg-[#202946] mx-[0.7rem] flex flex-col items-center rounded-[10px] justify-between sticky my-[1rem]">
@@ -21,80 +50,9 @@ const Header = () => {
                             </Tooltip>
                         </TooltipProvider>
                     </li>
-                    <Link to={"/"}>
-                        <li>
-                            <TooltipProvider className={"bg-amber-200"}>
-                                <Tooltip>
-                                    <TooltipTrigger>
-                                        <House size={30} strokeWidth={2} color="white" className="cursor-pointer" />
-                                    </TooltipTrigger>
-                                    <TooltipContent side="right" className="bg-[#F74840] text-white text-[0.9rem]">
-                                        <p className="text-[0.9rem]">Home</p>
-                                    </TooltipContent>
-                                </Tooltip>
-                            </TooltipProvider>
-                        </li>
-                    </Link>
-
-                    <Link to={"/movie/genre"}>
-                        <li>
-                            <TooltipProvider>
-                                <Tooltip>
-                                    <TooltipTrigger>
-                                        <Film size={30} strokeWidth={2} color="white" className="cursor-pointer" />
-                                    </TooltipTrigger>
-                                    <TooltipContent side="right" className="bg-[#F74840] text-white text-[0.9rem]">
-                                        <p className="text-[0.9rem]">Movies</p>
-                                    </TooltipContent>
-                                </Tooltip>
-                            </TooltipProvider>
-                        </li>
-                    </Link>
-
-                    <Link to={"/tv series/genre"}>
-                        <li>
-                            <TooltipProvider>
-                                <Tooltip>
-                                    <TooltipTrigger>
-                                        <TvMinimal size={30} strokeWidth={2} color="white" className="cursor-pointer" />
-                                    </TooltipTrigger>
-                                    <TooltipContent side="right" className="bg-[#F74840] text-white text-[0.9rem]">
-                                        <p className="text-[0.9rem]">TV Series</p>
-                                    </TooltipContent>
-                                </Tooltip>
-                            </TooltipProvider>
-                        </li>
-                    </Link>
-
-                    <Link to={"/person"}>
-                        <li>
-                            <TooltipProvider>
-                                <Tooltip>
-                                    <TooltipTrigger>
-                                        <CircleUserRound size={30} strokeWidth={2} color="white" className="cursor-pointer" />
-                                    </TooltipTrigger>
-                                    <TooltipContent side="right" className="bg-[#F74840] text-white text-[0.9rem]">
-                                        <p className="text-[0.9rem]">People</p>
-                                    </TooltipContent>
-                                </Tooltip>
-                            </TooltipProvider>
-                        </li>
-                    </Link>
-                    
-                    <Link to={"/bookmarks"}>
-                        <li>
-                            <TooltipProvider>
-                                <Tooltip>
-                                    <TooltipTrigger>
-                                        <BookMarked size={45} strokeWidth={1.5} color="#F74840" className="cursor-pointer" />
-                                    </TooltipTrigger>
-                                    <TooltipContent side="right" className="bg-[#F74840] text-white text-[0.9rem]">
-                                        <p className="text-[0.9rem]">Bookmarks</p>
-                                    </TooltipContent>
-                                </Tooltip>
-                            </TooltipProvider>
-                        </li>
-                    </Link>
+                    {
+                        navOptions.map((el) => <HeaderNavItem key={el.name} name={el.name} Icon={el.icon} nav={el.nav} />)
+                    }
                 </ul>
 
                 <Avatar>
@@ -115,53 +73,21 @@ const Header = () => {
                         <Logs size={33} color="white" />
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className={"mr-[1rem]"}>
-                            <Link to={"/"}>
-                                <DropdownMenuLabel className={"flex items-center gap-[10px] text-[1rem]"}>
-                                    <Avatar>
-                                        <AvatarImage src="https://github.com/shadcn.png" />
-                                        <AvatarFallback>
-                                            <User size={25} strokeWidth={1.5} />
-                                        </AvatarFallback>
-                                    </Avatar>
-                                    <span>Yash Bit</span>
-                                </DropdownMenuLabel>
-                            </Link>
+                        <DropdownMenuLabel className={"flex items-center gap-[10px] text-[1rem]"}>
+                            <Avatar>
+                                <AvatarImage src="https://github.com/shadcn.png" />
+                                <AvatarFallback>
+                                    <User size={25} strokeWidth={1.5} />
+                                </AvatarFallback>
+                            </Avatar>
+                            <span>Yash Bit</span>
+                        </DropdownMenuLabel>
+                        
                         <DropdownMenuSeparator />
 
-                        <Link to={"/"}>
-                            <DropdownMenuItem className={"flex items-center gap-[6px]"}>
-                                <House size={40} strokeWidth={2} color="black" className="cursor-pointer" />
-                                <span>Home</span>
-                            </DropdownMenuItem>
-                        </Link>
-
-                        <Link to={"/movie/genre"}>
-                            <DropdownMenuItem className={"flex items-center gap-[6px]"}>
-                                <Film size={40} strokeWidth={2} color="black" className="cursor-pointer" />
-                                <span>Movies</span>
-                            </DropdownMenuItem>
-                        </Link>
-
-                        <Link to={"/tv series/genre"}>
-                            <DropdownMenuItem className={"flex items-center gap-[6px]"}>
-                                <TvMinimal size={40} strokeWidth={2} color="black" className="cursor-pointer" />
-                                <span>TV Series</span>
-                            </DropdownMenuItem>
-                        </Link>
-
-                        <Link to={"/person"}>
-                            <DropdownMenuItem className={"flex items-center gap-[6px]"}>
-                                <CircleUserRound size={40} strokeWidth={2} color="black" className="cursor-pointer" />
-                                <span>People</span>
-                            </DropdownMenuItem>
-                        </Link>
-
-                        <Link to={"/bookmarks"}>
-                            <DropdownMenuItem className={"flex items-center gap-[6px]"}>
-                                <BookMarked size={40} strokeWidth={2} color="black" className="cursor-pointer" />
-                                <span>Bookmarks</span>
-                            </DropdownMenuItem>
-                        </Link>
+                        {
+                            navOptions.map((el) => <DropDownNavItem key={el.name} name={el.name} Icon={el.icon} nav={el.nav} />)
+                        }
                     </DropdownMenuContent>
                 </DropdownMenu>
             </div>

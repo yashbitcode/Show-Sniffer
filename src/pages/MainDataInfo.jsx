@@ -3,25 +3,13 @@ import Star from "@/components/Star";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { TMDB_IMG_LINK } from "@/utils/constants";
-import { getIdSpecificInfo, getLanguage, getTitleStr } from "@/utils/helper";
+import { getLanguage, getTitleStr } from "@/utils/helper";
+import useMainInfo from "@/utils/hooks/useMainInfo";
 import { Link as LinkLucide } from "lucide-react";
-import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router";
+import { Link } from "react-router";
 
 const MainDataInfo = () => {
-    const [data, setData] = useState(null);
-    const {tag, mainId} = useParams();
-
-    const fetchData = async () => {
-        const info = await getIdSpecificInfo(tag, mainId);
-        setData(info);
-    };
-
-    useEffect(() => {
-        fetchData();
-
-        return () => setData(null);
-    }, [mainId]);
+    const [data, tag] = useMainInfo();    
     
     if(!data) return <Skeleton className={"w-full h-[500px] mr-[1rem] mt-[1.5rem]"} />;
 

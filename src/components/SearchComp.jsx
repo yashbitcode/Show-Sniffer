@@ -1,53 +1,10 @@
 import { Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
-import { getSearchSuggestions } from "@/utils/helper";
-import { useDispatch, useSelector } from "react-redux";
-import { addSuggestions, resetSuggestions } from "@/utils/services/suggestionsSlice";
 import SearchDropDown from "./SearchDropDown";
-import { useNavigate } from "react-router";
+import useSearchDetails from "@/utils/hooks/useSearchDetails";
 
 const SearchComp = ({placeholder, tag}) => {
-    const [suggestions, setSuggestions] = useState(null);
-    const [inp, setInp] = useState("");
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-
-    const sugg = useSelector((store) => store.searchSuggestions.suggestions);
-
-    const fetchSuggestions = async () => {
-        const data = await getSearchSuggestions({query: inp, tag: tag, page: 1});
-
-        setSuggestions(data);
-
-        dispatch(addSuggestions({searchQuery: inp, result: data}));
-    };
-
-    const handler = () => {
-        if(!inp) setSuggestions(null);
-        else {
-            const catchedData = sugg[inp];
-
-            if(catchedData) setSuggestions(catchedData);
-            else fetchSuggestions();
-        }
-    };
-
-    const submitSearch = () => {
-        if(inp) navigate(`/${tag}/search/${inp}/1`);
-    };
-
-    useEffect(() => {
-        dispatch(resetSuggestions());
-    }, [tag]);
-
-    useEffect(() => {
-        const timerId = setTimeout(() => {
-            handler();
-        }, 200);
-
-        return () => clearTimeout(timerId);
-    }, [inp]);
+    const [suggestions, setSuggestions, inp, setInp, handler, submitSearch] = useSearchDetails(tag);
 
     return (
         <div className="flex max-sm:gap-[13px] gap-[20px] items-center max-w-[700px] mx-auto">

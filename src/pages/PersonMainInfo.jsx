@@ -1,25 +1,14 @@
 import { TMDB_IMG_LINK } from "@/utils/constants";
-import { getPersonIdSpecificInfo, getTitleStr } from "@/utils/helper";
-import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router";
+import { getTitleStr } from "@/utils/helper";
+import { Link } from "react-router";
 import noImg from "../assets/no-img.png";
 import { Badge } from "../components/ui/badge";
 import SearchComp from "../components/SearchComp";
 import { Skeleton } from "@/components/ui/skeleton";
+import usePeopleInfo from "@/utils/hooks/usePeopleInfo";
 
 const PersonMainInfo = () => {
-    const [data, setData] = useState(null);
-    const {mainId} = useParams();
-
-    const fetchData = async () => {
-        const info = await getPersonIdSpecificInfo(mainId);
-        console.log(info);
-        setData(info);
-    };
-
-    useEffect(() => {
-        fetchData();
-    }, []);
+    const data = usePeopleInfo();
 
     if(!data) return <Skeleton className={"w-full h-[500px] mr-[1rem] mt-[1.5rem]"} />;
 

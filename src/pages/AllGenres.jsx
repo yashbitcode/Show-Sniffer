@@ -1,21 +1,9 @@
-import { useEffect, useState } from "react";
-import SearchComp from "../components/SearchComp";
-import { getAllGenres } from "@/utils/helper";
+import useGenres from "@/utils/hooks/useGenres";
 import Genre from "../components/Genre";
-import { useParams } from "react-router";
+import SearchComp from "../components/SearchComp";
 
 const AllGenres = () => {
-    const [genres, setGenres] = useState(null);
-    const {tag} = useParams();
-
-    const fetchGenres = async () => {
-        const data = await getAllGenres(tag);
-        setGenres(data.genres);
-    };
-
-    useEffect(() => {
-        fetchGenres();
-    }, [tag])
+    const [genres, tag] = useGenres();
 
     if(!genres) return;
 
