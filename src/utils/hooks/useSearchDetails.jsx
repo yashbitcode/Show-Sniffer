@@ -1,33 +1,30 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getSearchSuggestions } from "@/utils/helper";
 import { useDispatch, useSelector } from "react-redux";
 import { addSuggestions, resetSuggestions } from "@/utils/services/suggestionsSlice";
 import { useNavigate } from "react-router";
+import { useQuery } from "@tanstack/react-query";
 
 const useSearchDetails = (tag) => {
-    const [suggestions, setSuggestions] = useState(null);
     const [inp, setInp] = useState("");
+    const [hideSugg, setHideSugg] = useState(false);
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const timerRef = useRef(null);
 
     const sugg = useSelector((store) => store.searchSuggestions.suggestions);
 
     const fetchSuggestions = async () => {
+        const catchedData = sugg[inp];
+
+        if(catchedData) return catchedData;
+
         const data = await getSearchSuggestions({query: inp, tag: tag, page: 1});
 
-        setSuggestions(data);
-
         dispatch(addSuggestions({searchQuery: inp, result: data}));
-    };
 
-    const handler = () => {
-        if(!inp) setSuggestions(null);
-        else {
-            const catchedData = sugg[inp];
-
-            if(catchedData) setSuggestions(catchedData);
-            else fetchSuggestions();
-        }
+        return data;
     };
 
     const submitSearch = () => {
@@ -38,15 +35,20 @@ const useSearchDetails = (tag) => {
         dispatch(resetSuggestions());
     }, [tag]);
 
-    useEffect(() => {
-        const timerId = setTimeout(() => {
-            handler();
-        }, 200);
+    const {data} = useQuery({
+        queryKey: ["suggestions", inp],
+        queryFn: () => new Promise((resolve) => {
+            clearTimeout(timerRef.current);
 
-        return () => clearTimeout(timerId);
-    }, [inp]);
+            timerRef.current = setTimeout(async () => {
+                const sugg = await fetchSuggestions();
 
-    return [suggestions, setSuggestions, inp, setInp, handler, submitSearch];
+                resolve(sugg);
+            }, 200);
+        })
+    });
+
+    return [data, hideSugg, setHideSugg, inp, setInp, submitSearch];
 };
 
 export default useSearchDetails;

@@ -6,11 +6,13 @@ import { Badge } from "../components/ui/badge";
 import SearchComp from "../components/SearchComp";
 import { Skeleton } from "@/components/ui/skeleton";
 import usePeopleInfo from "@/utils/hooks/usePeopleInfo";
+import NotFound from "@/components/NotFound";
 
 const PersonMainInfo = () => {
-    const data = usePeopleInfo();
+    const [isLoading, isError, data] = usePeopleInfo();
 
-    if(!data) return <Skeleton className={"w-full h-[500px] mr-[1rem] mt-[1.5rem]"} />;
+    if(isLoading) return <Skeleton className={"w-full h-[500px] mr-[1rem] mt-[1.5rem]"} />;
+    if(isError) return <NotFound />;
 
     const {profile_path, name, gender, place_of_birth, popularity, deathday, biography, known_for_department, birthday} = data.mainData;
 

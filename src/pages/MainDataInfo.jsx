@@ -1,3 +1,4 @@
+import NotFound from "@/components/NotFound";
 import SearchComp from "@/components/SearchComp";
 import Star from "@/components/Star";
 import { Badge } from "@/components/ui/badge";
@@ -9,9 +10,10 @@ import { Link as LinkLucide } from "lucide-react";
 import { Link } from "react-router";
 
 const MainDataInfo = () => {
-    const [data, tag] = useMainInfo();    
+    const [isLoading, isError, data, tag] = useMainInfo();    
     
-    if(!data) return <Skeleton className={"w-full h-[500px] mr-[1rem] mt-[1.5rem]"} />;
+    if(isLoading) return <Skeleton className={"w-full h-[500px] mr-[1rem] mt-[1.5rem]"} />;
+    if(isError) return <NotFound />;
 
     const {poster_path, genres, homepage, original_title, title, original_name, name, vote_average, overview, popularity, release_date, production_companies, status, tagline, first_air_date, last_air_date, original_language, runtime} = data.mainData;
 

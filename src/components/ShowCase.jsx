@@ -2,13 +2,12 @@ import useGetSpecificData from "@/utils/hooks/useGetSpecificData";
 import CategoryHeader from "./CategoryHeader";
 import Card from "./Card";
 import GetRequiredShimmer from "./GetRequiredShimmer";
+import NotFound from "./NotFound";
 
 const ShowCase = ({category, tag, type, className}) => {
-    const data = useGetSpecificData(category, tag);
+    const [isLoading, isError, data] = useGetSpecificData(category, tag); 
 
-    if(!data) return <GetRequiredShimmer tag={tag} />;
-
-    return (
+    return (isLoading) ? <GetRequiredShimmer tag={tag} /> : (isError) ? <NotFound /> : (
         <div className="mt-[2.5rem] w-full pb-[1.6rem]">
             <CategoryHeader category={category} tag={tag} />
             

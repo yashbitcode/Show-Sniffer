@@ -1,19 +1,15 @@
-import { useEffect, useState } from "react";
 import { getAllGenres } from "@/utils/helper";
 import { useParams } from "react-router";
+import { useQuery } from "@tanstack/react-query";
 
 const useGenres = () => {
-    const [genres, setGenres] = useState(null);
     const {tag} = useParams();
 
-    const fetchGenres = async () => {
-        const data = await getAllGenres(tag);
-        setGenres(data.genres);
-    };
-
-    useEffect(() => {
-        fetchGenres();
-    }, [tag]);
+    const genres = useQuery({
+        queryKey: ["genresList", tag], 
+        queryFn: () => getAllGenres(tag), 
+        staleTime: 5 * 60 * 1000
+    });
 
     return [genres, tag];
 };

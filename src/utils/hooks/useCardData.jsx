@@ -3,6 +3,7 @@ import { toast } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { addBaseBM, addPeopleBM, deleteBaseBM, deletePeopleBM } from "@/utils/services/bookmarksSlice";
+import { CircleCheckBig } from "lucide-react";
 
 const useCardData = (info, tag) => {
     const bm = useSelector((store) => (tag !== "person") ? store.bookmarks.baseBM : store.bookmarks.peopleBM);
@@ -24,11 +25,11 @@ const useCardData = (info, tag) => {
         
         if(tag !== "person") {
             if(!bookmark) dispatch(addBaseBM(info));
-            else dispatch(deleteBaseBM(id));
+            else dispatch(deleteBaseBM(info.id));
         }
         else {
             if(!bookmark) dispatch(addPeopleBM(info));
-            else dispatch(deletePeopleBM(id));
+            else dispatch(deletePeopleBM(info.id));
         }
 
         toast.success("Bookmark", {

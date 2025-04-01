@@ -1,23 +1,16 @@
-import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { getPersonIdSpecificInfo } from "../helper";
+import { useQuery } from "@tanstack/react-query";
 
 const usePeopleInfo = () => {
-    const [data, setData] = useState(null);
     const {mainId} = useParams();
 
-    const fetchData = async () => {
-        const info = await getPersonIdSpecificInfo(mainId);
-        setData(info);
-    };
+    const {isLoading, isError, data} = useQuery({
+        queryKey: ["mainInfo", mainId],
+        queryFn: () => getPersonIdSpecificInfo(mainId)
+    });
 
-    useEffect(() => {
-        fetchData();
-
-        return () => setData(null);
-    }, []);
-
-    return data;
+    return [isLoading, isError, data];
 };
 
 export default usePeopleInfo;

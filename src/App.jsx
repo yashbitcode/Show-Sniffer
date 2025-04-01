@@ -13,6 +13,9 @@ import Person from "./pages/Person";
 import PersonMainInfo from "./pages/PersonMainInfo";
 import { Toaster } from "@/components/ui/sonner"
 import Bookmarks from "./pages/Bookmarks";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 const AppLayout = () => {
 	return (
@@ -74,7 +77,9 @@ const appRoutes = createBrowserRouter([
 
 const App = () => {
 	return (
-		<RouterProvider router={appRoutes} />	
+		<QueryClientProvider client={queryClient}>
+			<RouterProvider router={appRoutes} />
+		</QueryClientProvider>
 	);
 };
 

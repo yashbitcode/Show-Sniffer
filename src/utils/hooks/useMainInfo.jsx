@@ -1,23 +1,16 @@
-import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { getIdSpecificInfo } from "../helper";
+import { useQuery } from "@tanstack/react-query";
 
 const useMainInfo = () => {
-    const [data, setData] = useState(null);
     const {tag, mainId} = useParams();
 
-    const fetchData = async () => {
-        const info = await getIdSpecificInfo(tag, mainId);
-        setData(info);
-    };
+    const {isLoading, isError, data} = useQuery({
+        queryKey: ["mainInfo", mainId],
+        queryFn: () => getIdSpecificInfo(tag, mainId)
+    });
 
-    useEffect(() => {
-        fetchData();
-
-        return () => setData(null);
-    }, [mainId]);
-
-    return [data, tag];
+    return [isLoading, isError, data, tag];
 };
 
 export default useMainInfo;

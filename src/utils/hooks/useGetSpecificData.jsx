@@ -1,19 +1,18 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { fetchData } from "../helper";
 
 const useGetSpecificData = (category, tag) => {
-    const [data, setData] = useState(null);
-
     const fetchSpecificData = async () => {
         const data = await fetchData({category, tag});
-        setData(data);
+        return data;
     };
 
-    useEffect(() => {
-        fetchSpecificData();
-    }, []);
+    const {isLoading, isError, data} = useQuery({
+        queryKey: ["specificData"],
+        queryFn: fetchSpecificData
+    });
 
-    return data;
+    return [isLoading, isError, data];
 };
 
 export default useGetSpecificData;
