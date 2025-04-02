@@ -3,46 +3,51 @@ export const getTruncatedStr = (str) => {
     return str.substr(0, 20) + "...";
 };
 
+export const fetchAndResolve = async (url) => {
+    const res = await fetch("/api/data", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({url: url})
+    });
+
+    const data = await res.json();
+    return data;
+}
+
 export const fetchData = async ({category, tag, page}) => {
     if(!page) page = 1;
     if(tag === "tv series") tag = "tv";
 
     const url = (category === "trending") ? `https://api.themoviedb.org/3/trending/${tag}/day?page=${page}&` : `https://api.themoviedb.org/3/${tag}/${category}?page=${page}&`;
 
-    const res = await fetch("/api/data", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({url: url})
-    });
-    const data = await res.json();
-    
+    const data = await fetchAndResolve(url);
     return data;
 };
 
 export const getAllGenres = async (tag) => {
     tag = (tag === "tv series") ? "tv" : tag;
 
-    const res = await fetch(`https://api.themoviedb.org/3/genre/${tag}/list?api_key=5cc485ca4d1c04a1a9eb5393a66042b1`);
-    const data = await res.json();
+    const url = `https://api.themoviedb.org/3/genre/${tag}/list?`;
 
+    const data = await fetchAndResolve(url);
     return data;
 };
 
 export const getGenreSpecificData = async ({tag, genreId, page}) => {
     tag = (tag === "tv series") ? "tv" : tag;
 
-    const res = await fetch(`https://api.themoviedb.org/3/discover/${tag}?page=${page}&api_key=5cc485ca4d1c04a1a9eb5393a66042b1&with_genres=${genreId}`);
-    const data = await res.json();
-
+    const url = `https://api.themoviedb.org/3/discover/${tag}?page=${page}&with_genres=${genreId}&`;
+    
+    const data = await fetchAndResolve(url);
     return data;
 };
 
 export const getSearchSuggestions = async ({query, tag, page}) => {
     tag = (tag === "tv series") ? "tv" : tag;
 
-    const res = await fetch(`https://api.themoviedb.org/3/search/${tag}?query=${query}&page=${page}&api_key=5cc485ca4d1c04a1a9eb5393a66042b1`);
-    const data = await res.json();
+    const url = `https://api.themoviedb.org/3/search/${tag}?query=${query}&page=${page}&`;
 
+    const data = await fetchAndResolve(url);  
     return data;
 };
 
@@ -56,25 +61,17 @@ export const getSearchResults = async ({query, page}) => {
 export const getIdSpecificInfo = async (tag, id) => {
     tag = (tag === "tv series") ? "tv" : tag;
 
-    const res1 = await fetch(`https://api.themoviedb.org/3/${tag}/${id}?api_key=5cc485ca4d1c04a1a9eb5393a66042b1`);
-    const res2 = await fetch(`https://api.themoviedb.org/3/${tag}/${id}/videos?api_key=5cc485ca4d1c04a1a9eb5393a66042b1`);
-    const res3 = await fetch(`https://api.themoviedb.org/3/${tag}/${id}/credits?api_key=5cc485ca4d1c04a1a9eb5393a66042b1`);
-
-    const mainData = await res1.json();
-    const videos = await res2.json();
-    const credits = await res3.json();
+    const mainData = await fetchAndResolve(`https://api.themoviedb.org/3/${tag}/${id}?`);
+    const videos = await fetchAndResolve(`https://api.themoviedb.org/3/${tag}/${id}/videos?`);
+    const credits = await fetchAndResolve(`https://api.themoviedb.org/3/${tag}/${id}/credits?`);
 
     return {mainData, videos, credits};
 };
 
 export const getPersonIdSpecificInfo = async (id) => {
-    const res1 = await fetch(`https://api.themoviedb.org/3/person/${id}?api_key=5cc485ca4d1c04a1a9eb5393a66042b1`);
+    const mainData = await fetchAndResolve(`https://api.themoviedb.org/3/person/${id}?`);
 
-    const mainData = await res1.json();
-
-    const res2 = await fetch(`https://api.themoviedb.org/3/find/${mainData.imdb_id}?external_source=imdb_id&api_key=5cc485ca4d1c04a1a9eb5393a66042b1`);
-
-    const workedTitles = (await res2.json())?.person_results[0]?.known_for;
+    const workedTitles = (await fetchAndResolve(`https://api.themoviedb.org/3/find/${mainData.imdb_id}?external_source=imdb_id&`))?.person_results[0]?.known_for;
 
     return {mainData, workedTitles};
 };
