@@ -9,9 +9,13 @@ export const fetchData = async ({category, tag, page}) => {
 
     const url = (category === "trending") ? `https://api.themoviedb.org/3/trending/${tag}/day?page=${page}&` : `https://api.themoviedb.org/3/${tag}/${category}?page=${page}&`;
 
-    const res = await fetch("/api/data");
+    const res = await fetch("/api/data", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({url: url})
+    });
     const data = await res.json();
-    console.log(data); 
+    
     return data;
 };
 
