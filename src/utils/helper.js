@@ -7,11 +7,11 @@ export const fetchData = async ({category, tag, page}) => {
     if(!page) page = 1;
     if(tag === "tv series") tag = "tv";
 
-    const url = (category === "trending") ? `https://api.themoviedb.org/3/trending/${tag}/day?page=${page}&api_key=5cc485ca4d1c04a1a9eb5393a66042b1` : `https://api.themoviedb.org/3/${tag}/${category}?page=${page}&api_key=5cc485ca4d1c04a1a9eb5393a66042b1`;
+    const url = (category === "trending") ? `https://api.themoviedb.org/3/trending/${tag}/day?page=${page}&` : `https://api.themoviedb.org/3/${tag}/${category}?page=${page}&`;
 
-    const res = await fetch(url);
+    const res = await fetch("/api/data");
     const data = await res.json();
-    
+    console.log(data); 
     return data;
 };
 

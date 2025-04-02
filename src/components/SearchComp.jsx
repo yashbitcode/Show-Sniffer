@@ -5,9 +5,7 @@ import useSearchDetails from "@/utils/hooks/useSearchDetails";
 
 const SearchComp = ({placeholder, tag}) => {
     const [data, hideSugg, setHideSugg, inp, setInp, submitSearch] = useSearchDetails(tag);
-
-    console.log(data);
-
+    
     return (
         <div className="flex max-sm:gap-[13px] gap-[20px] items-center max-w-[700px] mx-auto">
             <Search color="white" size={30} />
