@@ -6,7 +6,7 @@ const useGenres = () => {
     const {tag} = useParams();
 
     const genres = useQuery({
-        queryKey: ["genresList", tag], 
+        queryKey: ["genresList" + tag, tag], 
         queryFn: () => getAllGenres(tag), 
         staleTime: 5 * 60 * 1000
     });

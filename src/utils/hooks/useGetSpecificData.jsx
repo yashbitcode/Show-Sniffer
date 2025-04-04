@@ -8,10 +8,11 @@ const useGetSpecificData = (category, tag) => {
     };
 
     const {isLoading, isError, data} = useQuery({
-        queryKey: ["specificData"],
-        queryFn: fetchSpecificData
+        queryKey: ["specificData" + category + tag],
+        queryFn: fetchSpecificData,
+        staleTime: 5 * 60 * 1000
     });
-
+    
     return [isLoading, isError, data];
 };
 

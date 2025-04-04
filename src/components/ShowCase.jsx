@@ -5,8 +5,8 @@ import GetRequiredShimmer from "./GetRequiredShimmer";
 import NotFound from "./NotFound";
 
 const ShowCase = ({category, tag, type, className}) => {
-    const [isLoading, isError, data] = useGetSpecificData(category, tag); 
-
+    const [isLoading, isError, data] = useGetSpecificData(category, tag);
+    
     return (isLoading) ? <GetRequiredShimmer tag={tag} /> : (isError) ? <NotFound /> : (
         <div className="mt-[2.5rem] w-full pb-[1.6rem]">
             <CategoryHeader category={category} tag={tag} />

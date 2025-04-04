@@ -10,7 +10,7 @@ const CommonResultComp = ({baseUrl, handler, className}) => {
 
     return (
         <div className="min-sm3:pr-[0.5rem] my-[2rem] w-full">
-            <SearchComp placeholder={(tag === "movie") ? "Movies" : (tag === "person") ? "Person" : "TV Series"} tag={tag} />
+            <SearchComp placeholder={(tag === "movie") ? "Movies" : (tag === "person") ? "Person" : (tag === "multi") ? "Movies Or TV Series" : "TV Series"} tag={tag} />
             {
                 (isLoading) ? (
                     (tag !== "person") ? <Shimmer className={"mt-[1rem] grid-cols-[repeat(auto-fit,minmax(290px,1fr))] grid gap-[1rem] max-sm:justify-items-center"} cardClass={"w-full h-[200px] max-sm3:h-[180px]"} /> : <Shimmer className={"mt-[1rem] grid-cols-[repeat(auto-fit,minmax(270px,1fr))] grid gap-x-[1.1rem] gap-y-[2rem]"} cardClass={"w-full h-[400px] max-sm3:h-[200px] mx-auto"} />

@@ -14,6 +14,12 @@ import PersonMainInfo from "./pages/PersonMainInfo";
 import { Toaster } from "@/components/ui/sonner"
 import Bookmarks from "./pages/Bookmarks";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import SignInPage from "./pages/SignInPage";
+import SignUpPage from "./pages/SignUpPage";
+import { SignedOut } from "@clerk/clerk-react";
+import ProtectedRoute from "./pages/ProtectedRoute";
+import PublicRoute from "./pages/PublicRoute";
+import AIRecommender from "./pages/AIRecommender";
 
 const queryClient = new QueryClient();
 
@@ -36,41 +42,64 @@ const appRoutes = createBrowserRouter([
 		children: [
 			{
 				path: "/",
-				element: <Home />
+				element: <PublicRoute />,
+				children: [
+					{
+						path: "/sign-in/*",
+						element: <SignInPage />
+					},
+					{
+						path: "/sign-up/*",
+						element: <SignUpPage />
+					}
+				]
 			},
 			{
-				path: "/:tag/:category/:page",
-				element: <CategorySpecific />
-			},
-			{
-				path: "/:tag/genre",
-				element: <AllGenres />
-			},
-			{
-				path: "/:tag",
-				element: <Person />
-			},
-			{
-				path: "/person/:mainId",
-				element: <PersonMainInfo />
-			},
-			{
-				path: "/:tag/genre/:genreName/:genreId/:page",
-				element: <GenreSpecific />
-			},
-			{
-				path: "/:tag/search/:query/:page",
-				element: <SearchResults />
-			},
-			{
-				path: "/:tag/:mainId",
-				element: <MainDataInfo />
-			},
-			{
-				path: "/bookmarks",
-				element: <Bookmarks />
-			},
-
+				path: "/",
+				element: <ProtectedRoute />,
+				children: [
+					{
+						path: "/home",
+						element: <Home />
+					},
+					{
+						path: "/:tag/:category/:page",
+						element: <CategorySpecific />
+					},
+					{
+						path: "/:tag/genre",
+						element: <AllGenres />
+					},
+					{
+						path: "/:tag",
+						element: <Person />
+					},
+					{
+						path: "/person/:mainId",
+						element: <PersonMainInfo />
+					},
+					{
+						path: "/:tag/genre/:genreName/:genreId/:page",
+						element: <GenreSpecific />
+					},
+					{
+						path: "/:tag/search/:query/:page",
+						element: <SearchResults />
+					},
+					{
+						path: "/:tag/:mainId",
+						element: <MainDataInfo />
+					},
+					{
+						path: "/bookmarks",
+						element: <Bookmarks />
+					},
+					{
+						path: "/ai-search",
+						element: <AIRecommender />
+					}
+				]
+			}
 		]
 	}
 ]);

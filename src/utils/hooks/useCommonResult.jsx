@@ -8,8 +8,9 @@ const useCommonResult = (baseUrl, handler) => {
     const {page, tag, query} = params;
 
     const {isLoading, isError, data} = useQuery({
-        queryKey: ["commonResult", page, query],
-        queryFn: () => handler(params)
+        queryKey: ["commonResult" + tag + page, page, query],
+        queryFn: () => handler(params),
+        staleTime: 5 * 60 * 1000
     });
 
     const setNextPage = () => {

@@ -6,8 +6,9 @@ const usePeopleInfo = () => {
     const {mainId} = useParams();
 
     const {isLoading, isError, data} = useQuery({
-        queryKey: ["mainInfo", mainId],
-        queryFn: () => getPersonIdSpecificInfo(mainId)
+        queryKey: ["mainInfo" + mainId, mainId],
+        queryFn: () => getPersonIdSpecificInfo(mainId),
+        staleTime: 5 * 60 * 1000
     });
 
     return [isLoading, isError, data];

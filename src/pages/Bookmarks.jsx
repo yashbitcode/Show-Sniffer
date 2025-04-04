@@ -6,7 +6,7 @@ const Bookmarks = () => {
     return (
         <div className="w-full mb-[2rem]">
             <MoviesAndTvBM />
-            <Separator className="my-[1.5rem] bg-amber-100 py-[2px] rounded-2xl" />
+            <Separator className="my-[1.8rem] bg-amber-100 py-[2px] rounded-2xl" />
             <PeopleBM />
         </div>
     );

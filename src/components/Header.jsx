@@ -1,9 +1,10 @@
-import { Film, House, TvMinimal, BookMarked, User, CircleUserRound, Logs, Popcorn } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Film, House, TvMinimal, BookMarked, User, CircleUserRound, Logs, Popcorn, LogIn, BetweenHorizontalStart } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import HeaderNavItem from "./HeaderNavItem";
 import DropDownNavItem from "./DropDownNavItem";
+import { useAuth, useClerk, UserButton } from "@clerk/clerk-react";
+import { Skeleton } from "./ui/skeleton";
 
 const Header = () => {
     const navOptions = [
@@ -34,7 +35,25 @@ const Header = () => {
         },
     ];
 
-    return (
+    const baseOptions = [
+        {
+            name: "Sign In",
+            icon: LogIn,
+            nav: "/sign-in"
+        },
+        {
+            name: "Sign Up",
+            icon: BetweenHorizontalStart,
+            nav: "/sign-up"
+        },
+    ];
+
+    const {signOut} = useClerk();
+    const {isSignedIn, isLoaded} = useAuth();
+
+    if(!isLoaded) return <Skeleton className={"w-[80px] ml-[1rem] mt-[1.5rem] h-[200px]"} />;
+
+    return isSignedIn ? (
         <>
             <div className="min-sm3:h-[530px] max-sm3:hidden w-fit px-[15px] top-[1.5rem] py-[20px] bg-[#202946] mx-[0.7rem] flex flex-col items-center rounded-[10px] justify-between sticky my-[1rem]">
                 <ul className="flex flex-col max-sm3:flex-row items-center h-full max-h-[420px] gap-[1.5rem] justify-between">
@@ -42,7 +61,7 @@ const Header = () => {
                         <TooltipProvider>
                             <Tooltip>
                                 <TooltipTrigger>
-                                    <Popcorn size={45} strokeWidth={1.5} color="#F74840" />
+                                    <Popcorn size={50} strokeWidth={1.5} color="#F74840" />
                                 </TooltipTrigger>
                                 <TooltipContent side="right" className="bg-[#F74840] text-white text-[0.9rem]">
                                     <p className="text-[0.9rem]">Snow Sniffer</p>
@@ -55,12 +74,16 @@ const Header = () => {
                     }
                 </ul>
 
-                <Avatar>
-                    <AvatarImage src="https://github.com/shadcn.png" />
-                    <AvatarFallback>
-                        <User size={25} strokeWidth={1.5} />
-                    </AvatarFallback>
-                </Avatar>
+                <TooltipProvider className={"bg-amber-200"}>
+                    <Tooltip>
+                        <TooltipTrigger>
+                            <UserButton />
+                        </TooltipTrigger>
+                        <TooltipContent side="right" className="bg-[#F74840] text-white text-[0.9rem]">
+                            <p className="text-[0.9rem]">Profile</p>
+                        </TooltipContent>
+                    </Tooltip>
+                </TooltipProvider>
             </div>
 
             <div className="mt-[1rem] flex w-full justify-between min-sm3:hidden">
@@ -74,13 +97,8 @@ const Header = () => {
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className={"mr-[1rem]"}>
                         <DropdownMenuLabel className={"flex items-center gap-[10px] text-[1rem]"}>
-                            <Avatar>
-                                <AvatarImage src="https://github.com/shadcn.png" />
-                                <AvatarFallback>
-                                    <User size={25} strokeWidth={1.5} />
-                                </AvatarFallback>
-                            </Avatar>
-                            <span>Yash Bit</span>
+                            <UserButton />
+                            <span onClick={() => signOut()}>Sign Out</span>
                         </DropdownMenuLabel>
                         
                         <DropdownMenuSeparator />
@@ -92,6 +110,26 @@ const Header = () => {
                 </DropdownMenu>
             </div>
         </>
+    ) : (
+        <div className="min-sm3:h-[250px] max-sm3:hidden w-fit px-[15px] top-[1.5rem] py-[20px] bg-[#202946] mx-[0.7rem] flex flex-col items-center rounded-[10px] justify-between sticky my-[1rem]">
+            <ul className="flex flex-col max-sm3:flex-row items-center h-full max-h-[420px] gap-[1.5rem] justify-between">
+                <li>
+                    <TooltipProvider>
+                        <Tooltip>
+                            <TooltipTrigger>
+                                <Popcorn size={50} strokeWidth={1.5} color="#F74840" />
+                            </TooltipTrigger>
+                            <TooltipContent side="right" className="bg-[#F74840] text-white text-[0.9rem]">
+                                <p className="text-[0.9rem]">Snow Sniffer</p>
+                            </TooltipContent>
+                        </Tooltip>
+                    </TooltipProvider>
+                </li>
+                {
+                    baseOptions.map((el) => <HeaderNavItem key={el.name} name={el.name} Icon={el.icon} nav={el.nav} />)
+                }
+            </ul>
+        </div>
     );
 };
 

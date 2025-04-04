@@ -6,8 +6,9 @@ const useMainInfo = () => {
     const {tag, mainId} = useParams();
 
     const {isLoading, isError, data} = useQuery({
-        queryKey: ["mainInfo", mainId],
-        queryFn: () => getIdSpecificInfo(tag, mainId)
+        queryKey: ["mainInfo" + tag + mainId, mainId],
+        queryFn: () => getIdSpecificInfo(tag, mainId),
+        staleTime: 5 * 60 * 1000
     });
 
     return [isLoading, isError, data, tag];

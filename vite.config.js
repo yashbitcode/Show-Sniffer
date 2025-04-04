@@ -14,6 +14,8 @@ export default defineConfig({
   server: {
     watch: {
       usePolling: true
+    },proxy: {
+      '/api': 'http://localhost:3000'  // Or whatever port Vercel functions run on
     }
   }
 })

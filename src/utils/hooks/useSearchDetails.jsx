@@ -36,7 +36,7 @@ const useSearchDetails = (tag) => {
     }, [tag]);
 
     const {data} = useQuery({
-        queryKey: ["suggestions", inp],
+        queryKey: ["suggestions" + tag, inp],
         queryFn: () => new Promise((resolve) => {
             clearTimeout(timerRef.current);
 
@@ -45,7 +45,8 @@ const useSearchDetails = (tag) => {
 
                 resolve(sugg);
             }, 200);
-        })
+        }),
+        staleTime: 5 * 60 * 1000
     });
 
     return [data, hideSugg, setHideSugg, inp, setInp, submitSearch];
