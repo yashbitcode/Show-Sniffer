@@ -8,7 +8,7 @@ const HeaderNavItem = ({name, Icon, nav}) => {
                 <TooltipProvider className={"bg-amber-200"}>
                     <Tooltip>
                         <TooltipTrigger>
-                            <Icon size={30} strokeWidth={2} color="white" className="cursor-pointer" />
+                            <Icon size={28} strokeWidth={2} color="white" className="cursor-pointer" />
                         </TooltipTrigger>
                         <TooltipContent side="right" className="bg-[#F74840] text-white text-[0.9rem]">
                             <p className="text-[0.9rem]">{name}</p>

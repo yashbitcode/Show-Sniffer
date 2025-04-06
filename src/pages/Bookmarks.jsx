@@ -1,8 +1,12 @@
 import MoviesAndTvBM from "@/components/MoviesAndTvBM";
 import PeopleBM from "@/components/PeopleBM";
+import { useAuth } from "@clerk/clerk-react";
 import { Separator } from "@radix-ui/react-dropdown-menu";
 
 const Bookmarks = () => {
+    const auth = useAuth();
+	
+	console.log(auth);
     return (
         <div className="w-full mb-[2rem]">
             <MoviesAndTvBM />

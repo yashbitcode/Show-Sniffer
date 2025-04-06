@@ -1,11 +1,16 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { addBaseBM, addPeopleBM, deleteBaseBM, deletePeopleBM } from "@/utils/services/bookmarksSlice";
 import { CircleCheckBig } from "lucide-react";
+import databaseSer from "@/appwrite/databaseService";
+import { useAuth } from "@clerk/clerk-react";
+import { ID } from "appwrite";
 
 const useCardData = (info, tag) => {
+    const {userId} = useAuth();
+
     const bm = useSelector((store) => (tag !== "person") ? store.bookmarks.baseBM : store.bookmarks.peopleBM);
 
     if(!info.media_type) info.media_type = tag;
@@ -17,20 +22,32 @@ const useCardData = (info, tag) => {
 
     tag = (info.media_type || tag);
 
+    useEffect(() => {
+        if(bm[info.id]) setBookmark(true);
+    }, [bm]);
+
     const handleCardNavigation = () => navigate(`/${tag}/${info.id}`);
     
     const handleBookmark = (e) => {
         e.stopPropagation();
         setBookmark(!bookmark);
+
+        const docId = ID.unique();
         
         if(tag !== "person") {
             if(!bookmark) dispatch(addBaseBM(info));
             else dispatch(deleteBaseBM(info.id));
         }
+
         else {
             if(!bookmark) dispatch(addPeopleBM(info));
             else dispatch(deletePeopleBM(info.id));
         }
+
+        if(!bookmark) {
+            databaseSer.createBookmark(userId, docId, JSON.stringify({id: info.id, info: info}));
+        }
+        else databaseSer.deleteBookmark(docId);
 
         toast.success("Bookmark", {
             description: `Bookmark ${!bookmark ? "Added" : "Removed"} Successfully`,
