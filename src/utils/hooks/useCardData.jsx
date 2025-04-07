@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
@@ -35,19 +35,19 @@ const useCardData = (info, tag) => {
         const docId = ID.unique();
         
         if(tag !== "person") {
-            if(!bookmark) dispatch(addBaseBM(info));
+            if(!bookmark) dispatch(addBaseBM({info, docId}));
             else dispatch(deleteBaseBM(info.id));
         }
 
         else {
-            if(!bookmark) dispatch(addPeopleBM(info));
+            if(!bookmark) dispatch(addPeopleBM({info, docId}));
             else dispatch(deletePeopleBM(info.id));
         }
 
         if(!bookmark) {
-            databaseSer.createBookmark(userId, docId, JSON.stringify({id: info.id, info: info}));
+            databaseSer.createBookmark(userId, docId, JSON.stringify({id: info.id, info: info, docId: docId}));
         }
-        else databaseSer.deleteBookmark(docId);
+        else databaseSer.deleteBookmark(bm[info.id].docId);
 
         toast.success("Bookmark", {
             description: `Bookmark ${!bookmark ? "Added" : "Removed"} Successfully`,

@@ -13,12 +13,12 @@ const bookmarkSlice = createSlice({
 			state.peopleBM = peopleBM;
 		},
         addBaseBM: (state, action) => {
-            const info = action.payload;
-            state.baseBM[info.id] = info;
+            const {info, docId} = action.payload;
+            state.baseBM[info.id] = {info, docId};
         },
         addPeopleBM: (state, action) => {
-            const info = action.payload;
-            state.peopleBM[info.id] = info;
+            const {info, docId} = action.payload;
+            state.peopleBM[info.id] = {info, docId};
         },
         deleteBaseBM: (state, action) => {
             const id = action.payload;

@@ -4,7 +4,7 @@ import { getAllRecomm } from "@/utils/helper";
 import Card from "./Card";
 
 const InfoAIShowCase = ({movies, tvSeries}) => {
-    const { isError, data} = useQuery({
+    const {isError, data} = useQuery({
         queryKey: ["ai-recom.", movies, tvSeries],
         queryFn: () => getAllRecomm(movies, tvSeries),
         staleTime: 60 * 1000 * 5
@@ -17,7 +17,7 @@ const InfoAIShowCase = ({movies, tvSeries}) => {
     return (
         <div className="w-full flex flex-col gap-[3rem] my-[1.5rem] min-sm3:pr-[1.5rem]">
             {
-                data.map((el1) => (
+                data?.map((el1) => (
                     <div key={el1.key}>
                         <h1 className="text-3xl text-white mb-[10px]">{el1.key}</h1>
 

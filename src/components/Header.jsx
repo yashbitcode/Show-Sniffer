@@ -62,7 +62,7 @@ const Header = () => {
     const {signOut} = useClerk();
     const {isSignedIn, isLoaded} = useAuth();
 
-    if(!isLoaded) return <Skeleton className={"min-sm3:w-[80px] w-full mt-[1.5rem] min-sm3:h-[200px] h-[60px]"} />;
+    if(!isLoaded) return <Skeleton className={"min-sm3:w-[80px] w-full mt-[1.5rem] min-sm3:h-[200px] h-[60px] min-sm3:ml-[1rem]"} />;
 
     return isSignedIn ? (
         <>

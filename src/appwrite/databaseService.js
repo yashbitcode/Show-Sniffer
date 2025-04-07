@@ -14,7 +14,7 @@ class DatabaseService {
         try {
             const result = await this.database.createDocument(
                 conf.appwriteDatabaseId,
-                conf.appwriteCollectionId,
+                conf.appwriteBookmarksCollectionId,
                 id,
                 {UserId: userId, AllBM: bm},
             );
@@ -30,7 +30,7 @@ class DatabaseService {
         try {
             const result = await this.database.listDocuments(
                 conf.appwriteDatabaseId,
-                conf.appwriteCollectionId,
+                conf.appwriteBookmarksCollectionId,
                 [
                     Query.equal("UserId", userId)
                 ]
@@ -40,10 +40,10 @@ class DatabaseService {
             const peopleBM = {};
 
             result.documents.forEach(({AllBM}) => {
-                const {id, info} = JSON.parse(AllBM);
+                const {id, info, docId} = JSON.parse(AllBM);
 
-                if(info.media_type !== "person") baseBM[id] = info;
-                else peopleBM[id] = info;
+                if(info.media_type !== "person") baseBM[id] = {info: info, docId: docId};
+                else peopleBM[id] = {info: info, docId: docId};
             });
 
             return [baseBM, peopleBM];
@@ -57,13 +57,35 @@ class DatabaseService {
         try {
             const result = await this.database.deleteDocument(
                 conf.appwriteDatabaseId,
-                conf.appwriteCollectionId,
+                conf.appwriteBookmarksCollectionId,
                 docId
             );
 
             return result;
         }
         catch(e) { 
+            return null;
+        }
+    }
+
+    async createSearch(userId, id, name, recomm, context) {
+        try {
+            const result = await this.database.createDocument(
+                conf.appwriteDatabaseId,
+                conf.appwriteAISearchesCollectionId,
+                id,
+                {
+                    UserId: userId, 
+                    Name: name, 
+                    Recommendations: recomm, 
+                    id: id, 
+                    Context: context
+                },
+            );
+
+            return result;
+        }
+        catch(e) {
             return null;
         }
     }

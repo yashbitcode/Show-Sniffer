@@ -118,6 +118,9 @@ export const getLanguage = (code) => {
     return lang.of(code);
 };
 
+export const contextValidation = (name, context) => {
+    return !name ? "Fill The Name Entry" : (!context ? "Fill The Context Entry" : null);
+};
 
 
 

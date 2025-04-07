@@ -97,6 +97,10 @@ const appRoutes = createBrowserRouter([
 					{
 						path: "/ai-search",
 						element: <AIRecommender />
+					},
+					{
+						path: "/ai-search/:searchId",
+						element: null
 					}
 				]
 			}
