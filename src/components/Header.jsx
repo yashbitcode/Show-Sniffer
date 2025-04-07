@@ -5,7 +5,7 @@ import HeaderNavItem from "./HeaderNavItem";
 import DropDownNavItem from "./DropDownNavItem";
 import { useAuth, useClerk, UserButton } from "@clerk/clerk-react";
 import { Skeleton } from "./ui/skeleton";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 const Header = () => {
     const navOptions = [
@@ -61,6 +61,7 @@ const Header = () => {
 
     const {signOut} = useClerk();
     const {isSignedIn, isLoaded} = useAuth();
+    const navigate = useNavigate();
 
     if(!isLoaded) return <Skeleton className={"min-sm3:w-[80px] w-full mt-[1.5rem] min-sm3:h-[200px] h-[60px] min-sm3:ml-[1rem]"} />;
 
@@ -68,10 +69,10 @@ const Header = () => {
         <>
             <div className="min-sm3:h-[540px] max-sm3:hidden w-fit px-[15px] top-[1.5rem] py-[20px] bg-[#202946] mx-[0.7rem] flex flex-col items-center rounded-[10px] justify-between sticky my-[1rem]">
                 <ul className="flex flex-col max-sm3:flex-row items-center h-full max-h-[430px] gap-[1.5rem] justify-between">
-                    <li>
+                    <li onClick={() => navigate("/")}>
                         <TooltipProvider>
                             <Tooltip>
-                                <TooltipTrigger>
+                                <TooltipTrigger className="cursor-pointer">
                                     <Popcorn size={50} strokeWidth={1.5} color="#F74840" />
                                 </TooltipTrigger>
                                 <TooltipContent side="right" className="bg-[#F74840] text-white text-[0.9rem]">
@@ -139,10 +140,10 @@ const Header = () => {
         <>
             <div className="min-sm3:h-[250px] max-sm3:hidden w-fit px-[15px] top-[1.5rem] py-[20px] bg-[#202946] mx-[0.7rem] flex flex-col items-center rounded-[10px] justify-between sticky my-[1rem]">
                 <ul className="flex flex-col max-sm3:flex-row items-center h-full max-h-[420px] gap-[1.5rem] justify-between">
-                    <li>
+                    <li onClick={() => navigate("/")}>
                         <TooltipProvider>
                             <Tooltip>
-                                <TooltipTrigger>
+                                <TooltipTrigger className="cursor-pointer">
                                     <Popcorn size={50} strokeWidth={1.5} color="#F74840" />
                                 </TooltipTrigger>
                                 <TooltipContent side="right" className="bg-[#F74840] text-white text-[0.9rem]">

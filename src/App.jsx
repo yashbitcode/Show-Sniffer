@@ -21,6 +21,7 @@ import ProtectedRoute from "./pages/ProtectedRoute";
 import PublicRoute from "./pages/PublicRoute";
 import AIRecommender from "./pages/AIRecommender";
 import AISearchResult from "./components/AISearchResult";
+import HomePage from "./pages/HomePage";
 
 const queryClient = new QueryClient();
 
@@ -45,6 +46,10 @@ const appRoutes = createBrowserRouter([
 				path: "/",
 				element: <PublicRoute />,
 				children: [
+					{
+						path: "/",
+						element: <HomePage />
+					},
 					{
 						path: "/sign-in/*",
 						element: <SignInPage />
