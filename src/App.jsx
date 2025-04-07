@@ -20,6 +20,7 @@ import { SignedOut } from "@clerk/clerk-react";
 import ProtectedRoute from "./pages/ProtectedRoute";
 import PublicRoute from "./pages/PublicRoute";
 import AIRecommender from "./pages/AIRecommender";
+import AISearchResult from "./components/AISearchResult";
 
 const queryClient = new QueryClient();
 
@@ -100,7 +101,7 @@ const appRoutes = createBrowserRouter([
 					},
 					{
 						path: "/ai-search/:searchId",
-						element: null
+						element: <AISearchResult />
 					}
 				]
 			}

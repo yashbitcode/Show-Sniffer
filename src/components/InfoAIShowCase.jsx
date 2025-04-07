@@ -15,7 +15,7 @@ const InfoAIShowCase = ({movies, tvSeries}) => {
     if(isError) return <NotFound />;
 
     return (
-        <div className="w-full flex flex-col gap-[3rem] my-[1.5rem] min-sm3:pr-[1.5rem]">
+        <div className="w-full flex flex-col gap-[3rem] my-[1.5rem] min-sm3:pr-[1rem]">
             {
                 data?.map((el1) => (
                     <div key={el1.key}>

@@ -78,9 +78,40 @@ class DatabaseService {
                     UserId: userId, 
                     Name: name, 
                     Recommendations: recomm, 
-                    id: id, 
                     Context: context
                 },
+            );
+
+            return result;
+        }
+        catch(e) {
+            return null;
+        }
+    }
+
+    async getSpecificSearchData(id) {
+        try {
+            const result = await this.database.getDocument(
+                conf.appwriteDatabaseId,
+                conf.appwriteAISearchesCollectionId,
+                id,
+            );
+
+            return result;
+        }
+        catch(e) {
+            return null;
+        }
+    }
+
+    async getAllSearches(userId) {
+        try {
+            const result = await this.database.listDocuments(
+                conf.appwriteDatabaseId,
+                conf.appwriteAISearchesCollectionId,
+                [
+                    Query.equal("UserId", [userId])
+                ],
             );
 
             return result;
