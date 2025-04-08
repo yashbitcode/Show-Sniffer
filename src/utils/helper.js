@@ -6,15 +6,26 @@ export const getTruncatedStr = (str) => {
 export const fetchAndResolve = async (url) => {
     const res = await fetch("/api/data", {
         method: "POST",
-        headers: {"Content-Type": "application/json"},
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({url: url})
     });
 
     const data = await res.json();
 
-    console.log(data);
     return data;
-}
+};
+
+export const fetchRecommendations = async (userQuery) => {
+    const res = await fetch("/api/gemini", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({userQuery})
+    });
+
+    const data = await res.json();
+
+    return data;
+};
 
 export const fetchData = async ({category, tag, page}) => {
     if(!page) page = 1;

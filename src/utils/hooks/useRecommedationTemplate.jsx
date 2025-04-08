@@ -1,9 +1,8 @@
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router";
-import { contextValidation } from "@/utils/helper";
+import { contextValidation, fetchRecommendations } from "@/utils/helper";
 import { useAuth } from "@clerk/clerk-react";
 import { useQueryClient } from "@tanstack/react-query";
-import generateRes from "../services/gemini";
 import databaseSer from "@/appwrite/databaseService";
 import { ID } from "appwrite";
 
@@ -37,7 +36,7 @@ const useRecommedationTemplate = () => {
             else setTimeout(async () => {
                 const data = await queryClient.fetchQuery({
                     queryKey: ["recommendations"],
-                    queryFn: () => generateRes(context),
+                    queryFn: () => fetchRecommendations(context),
                 });
 
                 const docId = ID.unique();
